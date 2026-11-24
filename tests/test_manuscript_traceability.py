@@ -39,6 +39,20 @@ def test_required_result_files_exist():
         assert (RESULTS / name).exists(), f"Missing {name}"
 
 
+def test_table4_manifest_matches_json():
+    spec = importlib.util.spec_from_file_location(
+        "emit_manuscript_macros", REPO / "scripts" / "emit_manuscript_macros.py"
+    )
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    fresh = mod.table4_from_json()
+    path = RESULTS / "table4_manifest.json"
+    assert path.exists(), "Run emit_manuscript_macros.py"
+    saved = json.loads(path.read_text())
+    for key in ("DesignCrF5plus_re", "DesignOF3plus_BOpbe0", "DesignFCF2plus_re"):
+        assert abs(float(saved[key]["value"]) - float(fresh[key]["value"])) < 1e-5, key
+
+
 def test_headline_numbers_match_manifest():
     manifest = load_manifest()
     fresh = recompute_manifest()

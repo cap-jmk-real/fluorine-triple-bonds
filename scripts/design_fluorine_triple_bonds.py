@@ -187,14 +187,24 @@ def main():
             f"C -1.95 0 0; O -3.08 0 0; "
             f"C 0 1.95 0; O 0 3.08 0; "
             f"C 0 -1.95 0; O 0 -3.08 0"
-        ), 1, 1, (1.55, 2.00)),
+        ), 1, 0, (1.55, 2.00)),
         ("AuF (neutral, 1S+)",     lambda r: f"Au 0 0 0; F 0 0 {r}", 0, 0, (1.75, 2.15)),
-        ("[AuF]2+ (d8, 2S)",       lambda r: f"Au 0 0 0; F 0 0 {r}", 2, 1, (1.65, 2.20)),
+        ("[AuF]2+ (d8, 1S)",       lambda r: f"Au 0 0 0; F 0 0 {r}", 2, 0, (1.65, 2.20)),
     ]
 
     print("=== RATIONAL DESIGN SCREENING FOR FLUORINE TRIPLE BONDS (X2C-PBE0 / cc-pVTZ-DK) ===", flush=True)
     results = []
+    done_names: set[str] = set()
     OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
+    if OUT_JSON.exists():
+        try:
+            prev = json.loads(OUT_JSON.read_text())
+            results = list(prev.get("candidates", []))
+            done_names = {c["name"] for c in results}
+            if done_names:
+                print(f"Resuming with {len(results)} cached candidates", flush=True)
+        except json.JSONDecodeError:
+            results = []
 
     def flush_partial():
         payload = {
@@ -207,6 +217,8 @@ def main():
             json.dump(payload, f, indent=2)
 
     for name, fn, q, spin, bounds in candidates:
+        if name in done_names:
+            continue
         try:
             r = eval_candidate(name, fn, q, spin, bounds)
             results.append(r)

@@ -1,15 +1,23 @@
 #!/usr/bin/env python3
 """Generate publication-grade vector figures for the Fluorine Triple Bonds paper."""
 import json
-import os
+import sys
+from pathlib import Path
+
 import numpy as np
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-RES_JSON = "/home/s4il0r/.gemini/antigravity/scratch/fluorine-triple-bonds/results/ab_initio_results.json"
-FIG_DIR = "/home/s4il0r/.gemini/antigravity/scratch/fluorine-triple-bonds/figures"
-os.makedirs(FIG_DIR, exist_ok=True)
+_scripts = Path(__file__).resolve().parent
+if str(_scripts) not in sys.path:
+    sys.path.insert(0, str(_scripts))
+from repo_paths import FIGURES_DIR, RESULTS_DIR
+
+RES_JSON = RESULTS_DIR / "ab_initio_results.json"
+FIG_DIR = FIGURES_DIR
+FIG_DIR.mkdir(parents=True, exist_ok=True)
 HA_TO_EV = 27.211386245988
 
 COLORS = ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#CC79A7", "#56B4E9"]
@@ -25,7 +33,7 @@ plt.rcParams.update({
     "axes.spines.right": False,
 })
 
-with open(RES_JSON) as f:
+with open(RES_JSON, encoding="utf-8") as f:
     d = json.load(f)
 
 # =========================================================================
@@ -82,7 +90,7 @@ ax2.set_title(r"(b) $\sigma/\pi$ Bond-Order Decomposition (AE-X2C)")
 ax2.legend(frameon=False, loc="upper right")
 
 plt.tight_layout()
-plt.savefig(os.path.join(FIG_DIR, "fig1_mnf_pes_and_bo.pdf"), bbox_inches="tight")
+plt.savefig(FIG_DIR / "fig1_mnf_pes_and_bo.pdf", bbox_inches="tight")
 plt.close()
 
 # =========================================================================
@@ -110,6 +118,6 @@ for ax, key, title in [
     ax.legend(frameon=False, loc="upper right", fontsize=7.5)
 
 plt.tight_layout()
-plt.savefig(os.path.join(FIG_DIR, "fig2_ae_vs_ecp_pdf.pdf"), bbox_inches="tight")
+plt.savefig(FIG_DIR / "fig2_ae_vs_ecp_pdf.pdf", bbox_inches="tight")
 plt.close()
 print("Saved Fluorine figures to", FIG_DIR)

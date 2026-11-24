@@ -7,6 +7,342 @@
     "source": "ab_initio_results.json:CF+",
     "value": 1.1596
   },
+  "DesignCFplus_BOpbe0": {
+    "source": "triple_bond_design_screen.json:CF+ (1S+, benchmark)",
+    "value": 1.9849
+  },
+  "DesignCFplus_HFbo": {
+    "source": "triple_bond_design_screen.json:CF+ (1S+, benchmark)",
+    "value": 1.8194
+  },
+  "DesignCFplus_HFpi": {
+    "source": "triple_bond_design_screen.json:CF+ (1S+, benchmark)",
+    "value": 0.9389
+  },
+  "DesignCFplus_SigPi": {
+    "source": "triple_bond_design_screen.json:CF+ (1S+, benchmark)",
+    "value": "0.88/1.09"
+  },
+  "DesignCFplus_bound": {
+    "source": "triple_bond_design_screen.json:CF+ (1S+, benchmark)",
+    "value": true
+  },
+  "DesignCFplus_qF": {
+    "source": "triple_bond_design_screen.json:CF+ (1S+, benchmark)",
+    "value": 0.7443
+  },
+  "DesignCFplus_re": {
+    "source": "triple_bond_design_screen.json:CF+ (1S+, benchmark)",
+    "value": 1.1532
+  },
+  "DesignCrF5plus_BOpbe0": {
+    "source": "extreme_bo_results.json:[CrF]5+ (3d0, 1S+)",
+    "value": 0.767
+  },
+  "DesignCrF5plus_HFbo": {
+    "source": "extreme_bo_results.json:[CrF]5+ (3d0, 1S+)",
+    "value": 0.3127
+  },
+  "DesignCrF5plus_HFpi": {
+    "source": "extreme_bo_results.json:[CrF]5+ (3d0, 1S+)",
+    "value": 0.0214
+  },
+  "DesignCrF5plus_SigPi": {
+    "source": "extreme_bo_results.json:[CrF]5+ (3d0, 1S+)",
+    "value": "0.49/0.21"
+  },
+  "DesignCrF5plus_bound": {
+    "source": "extreme_bo_results.json:[CrF]5+ (3d0, 1S+)",
+    "value": true
+  },
+  "DesignCrF5plus_qF": {
+    "source": "extreme_bo_results.json:[CrF]5+ (3d0, 1S+)",
+    "value": 1.5147
+  },
+  "DesignCrF5plus_re": {
+    "source": "extreme_bo_results.json:[CrF]5+ (3d0, 1S+)",
+    "value": 2.151
+  },
+  "DesignFCF2plus_BOpbe0": {
+    "source": "triple_bond_design_screen.json:[F-C-F]2+ (linear, +2)",
+    "value": 2.0376
+  },
+  "DesignFCF2plus_HFbo": {
+    "source": "triple_bond_design_screen.json:[F-C-F]2+ (linear, +2)",
+    "value": 1.9557
+  },
+  "DesignFCF2plus_HFpi": {
+    "source": "triple_bond_design_screen.json:[F-C-F]2+ (linear, +2)",
+    "value": 0.9726
+  },
+  "DesignFCF2plus_SigPi": {
+    "source": "triple_bond_design_screen.json:[F-C-F]2+ (linear, +2)",
+    "value": "0.98/1.05"
+  },
+  "DesignFCF2plus_bound": {
+    "source": "triple_bond_design_screen.json:[F-C-F]2+ (linear, +2)",
+    "value": true
+  },
+  "DesignFCF2plus_qF": {
+    "source": "triple_bond_design_screen.json:[F-C-F]2+ (linear, +2)",
+    "value": 0.9372
+  },
+  "DesignFCF2plus_re": {
+    "source": "triple_bond_design_screen.json:[F-C-F]2+ (linear, +2)",
+    "value": 1.1461
+  },
+  "DesignMoF5plus_BOpbe0": {
+    "source": "extreme_bo_results.json:[MoF]5+ (4d0, 1S+)",
+    "value": 2.5796
+  },
+  "DesignMoF5plus_HFbo": {
+    "source": "extreme_bo_results.json:[MoF]5+ (4d0, 1S+)",
+    "value": 2.4212
+  },
+  "DesignMoF5plus_HFpi": {
+    "source": "extreme_bo_results.json:[MoF]5+ (4d0, 1S+)",
+    "value": 1.4952
+  },
+  "DesignMoF5plus_SigPi": {
+    "source": "extreme_bo_results.json:[MoF]5+ (4d0, 1S+)",
+    "value": "0.85/1.69"
+  },
+  "DesignMoF5plus_bound": {
+    "source": "extreme_bo_results.json:[MoF]5+ (4d0, 1S+)",
+    "value": true
+  },
+  "DesignMoF5plus_qF": {
+    "source": "extreme_bo_results.json:[MoF]5+ (4d0, 1S+)",
+    "value": 1.0471
+  },
+  "DesignMoF5plus_re": {
+    "source": "extreme_bo_results.json:[MoF]5+ (4d0, 1S+)",
+    "value": 1.6707
+  },
+  "DesignNF2plus_BOpbe0": {
+    "source": "extreme_bo_results.json:[NF]2+ (10ve, 1S+)",
+    "value": 2.4271
+  },
+  "DesignNF2plus_HFbo": {
+    "source": "extreme_bo_results.json:[NF]2+ (10ve, 1S+)",
+    "value": 2.2863
+  },
+  "DesignNF2plus_HFpi": {
+    "source": "extreme_bo_results.json:[NF]2+ (10ve, 1S+)",
+    "value": 1.3613
+  },
+  "DesignNF2plus_SigPi": {
+    "source": "extreme_bo_results.json:[NF]2+ (10ve, 1S+)",
+    "value": "0.92/1.50"
+  },
+  "DesignNF2plus_bound": {
+    "source": "extreme_bo_results.json:[NF]2+ (10ve, 1S+)",
+    "value": true
+  },
+  "DesignNF2plus_qF": {
+    "source": "extreme_bo_results.json:[NF]2+ (10ve, 1S+)",
+    "value": 1.05
+  },
+  "DesignNF2plus_re": {
+    "source": "extreme_bo_results.json:[NF]2+ (10ve, 1S+)",
+    "value": 1.0859
+  },
+  "DesignNbF4plus_BOpbe0": {
+    "source": "extreme_bo_results.json:[NbF]4+ (4d0, 1S+)",
+    "value": 2.2164
+  },
+  "DesignNbF4plus_HFbo": {
+    "source": "extreme_bo_results.json:[NbF]4+ (4d0, 1S+)",
+    "value": 2.0224
+  },
+  "DesignNbF4plus_HFpi": {
+    "source": "extreme_bo_results.json:[NbF]4+ (4d0, 1S+)",
+    "value": 1.205
+  },
+  "DesignNbF4plus_SigPi": {
+    "source": "extreme_bo_results.json:[NbF]4+ (4d0, 1S+)",
+    "value": "0.78/1.40"
+  },
+  "DesignNbF4plus_bound": {
+    "source": "extreme_bo_results.json:[NbF]4+ (4d0, 1S+)",
+    "value": true
+  },
+  "DesignNbF4plus_qF": {
+    "source": "extreme_bo_results.json:[NbF]4+ (4d0, 1S+)",
+    "value": 0.743
+  },
+  "DesignNbF4plus_re": {
+    "source": "extreme_bo_results.json:[NbF]4+ (4d0, 1S+)",
+    "value": 1.6548
+  },
+  "DesignOF3plus_BOpbe0": {
+    "source": "extreme_bo_results.json:[OF]3+ (10ve, 1S+)",
+    "value": 2.7446
+  },
+  "DesignOF3plus_HFbo": {
+    "source": "extreme_bo_results.json:[OF]3+ (10ve, 1S+)",
+    "value": 2.6816
+  },
+  "DesignOF3plus_HFpi": {
+    "source": "extreme_bo_results.json:[OF]3+ (10ve, 1S+)",
+    "value": 1.7758
+  },
+  "DesignOF3plus_SigPi": {
+    "source": "extreme_bo_results.json:[OF]3+ (10ve, 1S+)",
+    "value": "0.89/1.85"
+  },
+  "DesignOF3plus_bound": {
+    "source": "extreme_bo_results.json:[OF]3+ (10ve, 1S+)",
+    "value": true
+  },
+  "DesignOF3plus_qF": {
+    "source": "extreme_bo_results.json:[OF]3+ (10ve, 1S+)",
+    "value": 1.4563
+  },
+  "DesignOF3plus_re": {
+    "source": "extreme_bo_results.json:[OF]3+ (10ve, 1S+)",
+    "value": 1.0784
+  },
+  "DesignTaF4plus_BOpbe0": {
+    "source": "extreme_bo_results.json:[TaF]4+ (5d0, 1S+)",
+    "value": 2.1537
+  },
+  "DesignTaF4plus_HFbo": {
+    "source": "extreme_bo_results.json:[TaF]4+ (5d0, 1S+)",
+    "value": 1.9689
+  },
+  "DesignTaF4plus_HFpi": {
+    "source": "extreme_bo_results.json:[TaF]4+ (5d0, 1S+)",
+    "value": 1.1841
+  },
+  "DesignTaF4plus_SigPi": {
+    "source": "extreme_bo_results.json:[TaF]4+ (5d0, 1S+)",
+    "value": "0.76/1.36"
+  },
+  "DesignTaF4plus_bound": {
+    "source": "extreme_bo_results.json:[TaF]4+ (5d0, 1S+)",
+    "value": true
+  },
+  "DesignTaF4plus_qF": {
+    "source": "extreme_bo_results.json:[TaF]4+ (5d0, 1S+)",
+    "value": 0.6506
+  },
+  "DesignTaF4plus_re": {
+    "source": "extreme_bo_results.json:[TaF]4+ (5d0, 1S+)",
+    "value": 1.6759
+  },
+  "DesignTiF3plus_BOpbe0": {
+    "source": "extreme_bo_results.json:[TiF]3+ (3d0, 1S+)",
+    "value": 2.0361
+  },
+  "DesignTiF3plus_HFbo": {
+    "source": "extreme_bo_results.json:[TiF]3+ (3d0, 1S+)",
+    "value": 1.799
+  },
+  "DesignTiF3plus_HFpi": {
+    "source": "extreme_bo_results.json:[TiF]3+ (3d0, 1S+)",
+    "value": 1.027
+  },
+  "DesignTiF3plus_SigPi": {
+    "source": "extreme_bo_results.json:[TiF]3+ (3d0, 1S+)",
+    "value": "0.74/1.28"
+  },
+  "DesignTiF3plus_bound": {
+    "source": "extreme_bo_results.json:[TiF]3+ (3d0, 1S+)",
+    "value": true
+  },
+  "DesignTiF3plus_qF": {
+    "source": "extreme_bo_results.json:[TiF]3+ (3d0, 1S+)",
+    "value": 0.6793
+  },
+  "DesignTiF3plus_re": {
+    "source": "extreme_bo_results.json:[TiF]3+ (3d0, 1S+)",
+    "value": 1.5739
+  },
+  "DesignVF4plus_BOpbe0": {
+    "source": "extreme_bo_results.json:[VF]4+ (3d0, 1S+)",
+    "value": 2.4863
+  },
+  "DesignVF4plus_HFbo": {
+    "source": "extreme_bo_results.json:[VF]4+ (3d0, 1S+)",
+    "value": 1.7471
+  },
+  "DesignVF4plus_HFpi": {
+    "source": "extreme_bo_results.json:[VF]4+ (3d0, 1S+)",
+    "value": 0.8136
+  },
+  "DesignVF4plus_SigPi": {
+    "source": "extreme_bo_results.json:[VF]4+ (3d0, 1S+)",
+    "value": "0.84/1.63"
+  },
+  "DesignVF4plus_bound": {
+    "source": "extreme_bo_results.json:[VF]4+ (3d0, 1S+)",
+    "value": true
+  },
+  "DesignVF4plus_qF": {
+    "source": "extreme_bo_results.json:[VF]4+ (3d0, 1S+)",
+    "value": 1.0061
+  },
+  "DesignVF4plus_re": {
+    "source": "extreme_bo_results.json:[VF]4+ (3d0, 1S+)",
+    "value": 1.5652
+  },
+  "DesignWF5plus_BOpbe0": {
+    "source": "extreme_bo_results.json:[WF]5+ (5d0, 1S+)",
+    "value": 2.4814
+  },
+  "DesignWF5plus_HFbo": {
+    "source": "extreme_bo_results.json:[WF]5+ (5d0, 1S+)",
+    "value": 2.3425
+  },
+  "DesignWF5plus_HFpi": {
+    "source": "extreme_bo_results.json:[WF]5+ (5d0, 1S+)",
+    "value": 1.477
+  },
+  "DesignWF5plus_SigPi": {
+    "source": "extreme_bo_results.json:[WF]5+ (5d0, 1S+)",
+    "value": "0.82/1.63"
+  },
+  "DesignWF5plus_bound": {
+    "source": "extreme_bo_results.json:[WF]5+ (5d0, 1S+)",
+    "value": true
+  },
+  "DesignWF5plus_qF": {
+    "source": "extreme_bo_results.json:[WF]5+ (5d0, 1S+)",
+    "value": 0.909
+  },
+  "DesignWF5plus_re": {
+    "source": "extreme_bo_results.json:[WF]5+ (5d0, 1S+)",
+    "value": 1.6764
+  },
+  "DesignZrF3plus_BOpbe0": {
+    "source": "extreme_bo_results.json:[ZrF]3+ (4d0, 1S+)",
+    "value": 1.8437
+  },
+  "DesignZrF3plus_HFbo": {
+    "source": "extreme_bo_results.json:[ZrF]3+ (4d0, 1S+)",
+    "value": 1.6226
+  },
+  "DesignZrF3plus_HFpi": {
+    "source": "extreme_bo_results.json:[ZrF]3+ (4d0, 1S+)",
+    "value": 0.9258
+  },
+  "DesignZrF3plus_SigPi": {
+    "source": "extreme_bo_results.json:[ZrF]3+ (4d0, 1S+)",
+    "value": "0.70/1.11"
+  },
+  "DesignZrF3plus_bound": {
+    "source": "extreme_bo_results.json:[ZrF]3+ (4d0, 1S+)",
+    "value": true
+  },
+  "DesignZrF3plus_qF": {
+    "source": "extreme_bo_results.json:[ZrF]3+ (4d0, 1S+)",
+    "value": 0.5128
+  },
+  "DesignZrF3plus_re": {
+    "source": "extreme_bo_results.json:[ZrF]3+ (4d0, 1S+)",
+    "value": 1.7097
+  },
   "MnF1_deltaE_eV": {
     "source": "ab_initio_results.json:derived NEVPT2 minima",
     "value": 5.52

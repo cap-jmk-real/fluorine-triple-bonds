@@ -14,13 +14,20 @@ import json
 import os
 import sys
 import time
+from pathlib import Path
+
 import numpy as np
 
+_scripts = Path(__file__).resolve().parent
+if str(_scripts) not in sys.path:
+    sys.path.insert(0, str(_scripts))
+from repo_paths import FIGURES_DIR, RESULTS_DIR
+
 HA_TO_EV = 27.211386245988
-OUT_DIR = "/home/s4il0r/.gemini/antigravity/scratch/fluorine-triple-bonds/results"
-FIG_DIR = "/home/s4il0r/.gemini/antigravity/scratch/fluorine-triple-bonds/figures"
-os.makedirs(OUT_DIR, exist_ok=True)
-os.makedirs(FIG_DIR, exist_ok=True)
+OUT_DIR = RESULTS_DIR
+FIG_DIR = FIGURES_DIR
+OUT_DIR.mkdir(parents=True, exist_ok=True)
+FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def scan_curve(el_M, charge, spin, r_grid, basis="cc-pVTZ-DK", ecp=None, use_x2c=True):

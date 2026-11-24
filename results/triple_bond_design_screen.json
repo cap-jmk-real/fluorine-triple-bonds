@@ -295,8 +295,74 @@
         "q_F": 0.1987,
         "q_X": 1.8013
       }
+    },
+    {
+      "name": "TiF4 (Td, d0, 0)",
+      "charge": 0,
+      "spin": 0,
+      "bound": true,
+      "r_e_ang": 1.7397,
+      "e_pbe0_ha": -1253.446835,
+      "pbe0": {
+        "mayer_total": 1.1127,
+        "mayer_sigma": 0.5139,
+        "mayer_pi": 0.5726,
+        "q_F": 0.0903,
+        "q_X": -0.3614
+      },
+      "hf": {
+        "mayer_total": 0.9645,
+        "mayer_sigma": 0.4681,
+        "mayer_pi": 0.4643,
+        "q_F": 0.0009,
+        "q_X": -0.0038
+      }
+    },
+    {
+      "name": "MnO3F (C3v, d0, 0)",
+      "charge": 0,
+      "spin": 0,
+      "bound": true,
+      "r_e_ang": 1.6896,
+      "e_pbe0_ha": -1483.842916,
+      "pbe0": {
+        "mayer_total": 0.924,
+        "mayer_sigma": 0.5715,
+        "mayer_pi": 0.3402,
+        "q_F": -0.0036,
+        "q_X": -0.0442
+      },
+      "hf": {
+        "mayer_total": 0.763,
+        "mayer_sigma": 0.5637,
+        "mayer_pi": 0.1822,
+        "q_F": -0.1567,
+        "q_X": 0.0317
+      }
+    },
+    {
+      "name": "AuF (neutral, 1S+)",
+      "charge": 0,
+      "spin": 0,
+      "bound": true,
+      "r_e_ang": 1.9238,
+      "e_pbe0_ha": -19117.609664,
+      "pbe0": {
+        "mayer_total": 0.9579,
+        "mayer_sigma": 0.7326,
+        "mayer_pi": 0.2099,
+        "q_F": -0.1575,
+        "q_X": 0.1575
+      },
+      "hf": {
+        "mayer_total": 0.7031,
+        "mayer_sigma": 0.5369,
+        "mayer_pi": 0.1474,
+        "q_F": -0.3,
+        "q_X": 0.3
+      }
     }
   ],
-  "elapsed_s": 1436.7,
+  "elapsed_s": 951.7,
   "status": "partial"
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate LaTeX macros and a JSON manifest of headline manuscript numbers from saved results."""
+"""Generate LaTeX macros and manifests for headline numbers and Table 4 from saved JSON."""
 from __future__ import annotations
 
 import json
@@ -11,11 +11,52 @@ _scripts = Path(__file__).resolve().parent
 if str(_scripts) not in sys.path:
     sys.path.insert(0, str(_scripts))
 
-from repo_paths import GENERATED_DIR, PAPER_DIR, RESULTS_DIR
+from repo_paths import GENERATED_DIR, RESULTS_DIR
 
 HA_TO_EV = 27.211386245988
 MANIFEST_JSON = RESULTS_DIR / "manuscript_number_manifest.json"
+TABLE4_MANIFEST_JSON = RESULTS_DIR / "table4_manifest.json"
 MACROS_TEX = GENERATED_DIR / "macros.tex"
+
+# Fixed manuscript Table~\ref{tab:design} order: (macro slug, pool, name substring)
+TABLE4_ROWS = [
+    ("DesignOF3plus", "extreme", "[OF]3+"),
+    ("DesignMoF5plus", "extreme", "[MoF]5+"),
+    ("DesignVF4plus", "extreme", "[VF]4+"),
+    ("DesignWF5plus", "extreme", "[WF]5+"),
+    ("DesignNF2plus", "extreme", "[NF]2+"),
+    ("DesignNbF4plus", "extreme", "[NbF]4+"),
+    ("DesignTaF4plus", "extreme", "[TaF]4+"),
+    ("DesignFCF2plus", "design", "[F-C-F]2+"),
+    ("DesignTiF3plus", "extreme", "[TiF]3+"),
+    ("DesignCFplus", "design", "CF+ (1S+, benchmark)"),
+    ("DesignZrF3plus", "extreme", "[ZrF]3+"),
+    ("DesignCrF5plus", "extreme", "[CrF]5+"),
+]
+
+
+_DIGIT_WORDS = {
+    "0": "zero",
+    "1": "one",
+    "2": "two",
+    "3": "three",
+    "4": "four",
+    "5": "five",
+    "6": "six",
+    "7": "seven",
+    "8": "eight",
+    "9": "nine",
+}
+
+
+def tex_macro_name(key: str) -> str:
+    """Control sequence names must not embed digits (e.g. \\DataDesignCrF5 breaks at `5`)."""
+    parts = key.split("_")
+    species = parts[0]
+    field = "".join(parts[1:])
+    sp = "".join(_DIGIT_WORDS.get(c, c) for c in species if c.isalnum())
+    fd = "".join(c for c in field if c.isalpha())
+    return "Data" + sp + fd
 
 
 def load_json(name: str) -> dict:
@@ -35,6 +76,50 @@ def find_extreme(candidates: list, substr: str) -> dict:
         if substr in c.get("name", ""):
             return c
     raise KeyError(f"No candidate matching {substr!r}")
+
+
+def lookup_candidate(pool: list, substr: str) -> dict:
+    return find_extreme(pool, substr)
+
+
+def fmt_display_bo(x: float) -> str:
+    v = round(float(x), 3)
+    if abs(v - round(v)) < 1e-9:
+        return str(int(round(v)))
+    return f"{v:.3f}".rstrip("0").rstrip(".")
+
+
+def fmt_qf(q: float) -> str:
+    s = f"{q:+.2f}"
+    if s.endswith("0") and "." in s:
+        s = f"{q:+.2f}"  # keep two decimals for table
+    return s
+
+
+def table4_from_json() -> dict:
+    extreme = load_json("extreme_bo_results.json")["candidates"]
+    design = load_json("triple_bond_design_screen.json")["candidates"]
+    out = {}
+    for slug, pool_name, substr in TABLE4_ROWS:
+        pool = extreme if pool_name == "extreme" else design
+        row = lookup_candidate(pool, substr)
+        p, h = row["pbe0"], row["hf"]
+        src = (
+            f"extreme_bo_results.json:{row['name']}"
+            if pool_name == "extreme"
+            else f"triple_bond_design_screen.json:{row['name']}"
+        )
+        out[f"{slug}_re"] = {"value": row["r_e_ang"], "source": src}
+        out[f"{slug}_BOpbe0"] = {"value": p["mayer_total"], "source": src}
+        out[f"{slug}_SigPi"] = {
+            "value": f"{p['mayer_sigma']:.2f}/{p['mayer_pi']:.2f}",
+            "source": src,
+        }
+        out[f"{slug}_HFbo"] = {"value": h["mayer_total"], "source": src}
+        out[f"{slug}_HFpi"] = {"value": h["mayer_pi"], "source": src}
+        out[f"{slug}_qF"] = {"value": p["q_F"], "source": src}
+        out[f"{slug}_bound"] = {"value": row.get("bound", True), "source": src}
+    return out
 
 
 def manifest_from_results() -> dict:
@@ -57,26 +142,8 @@ def manifest_from_results() -> dict:
 
     ex = extreme["candidates"]
     of3 = find_extreme(ex, "[OF]3+")
-
-    def extreme_or_ligated(substr: str, ligated_name: str) -> dict:
-        try:
-            return find_extreme(ex, substr)
-        except KeyError:
-            lig = load_json("ligated_triple_bond_cores.json")
-            for block in lig.get("triple_bond_complexes", {}).values():
-                for row in block:
-                    if row.get("name") == ligated_name:
-                        return {
-                            "r_e_ang": row["r_e"],
-                            "pbe0": {
-                                "mayer_total": row["BO"],
-                                "mayer_pi": row.get("pi"),
-                            },
-                        }
-            raise
-
-    mof5 = extreme_or_ligated("[MoF]5+", "Bare [MoF]5+ (reference)")
-    wf5 = extreme_or_ligated("[WF]5+", "Bare [WF]5+ (reference)")
+    mof5 = find_extreme(ex, "[MoF]5+")
+    wf5 = find_extreme(ex, "[WF]5+")
 
     singlet_row = next(r for r in forensic["table1_rows"] if r["mult"] == 1)
 
@@ -120,20 +187,34 @@ def manifest_from_results() -> dict:
                     "value": block["pbe0_bo"],
                     "source": f"complementary_bonding_checks.json:of3plus_basis/{basis}",
                 }
+
+    entries.update(table4_from_json())
     return entries
 
 
 def macros_tex(entries: dict) -> str:
     lines = [
         "% Auto-generated by scripts/emit_manuscript_macros.py — do not edit by hand.",
-        f"% Regenerate: python scripts/emit_manuscript_macros.py",
+        "% Regenerate: python scripts/emit_manuscript_macros.py",
         "",
     ]
     for key, meta in sorted(entries.items()):
         v = meta["value"]
+        if key.endswith("_bound"):
+            continue
         if isinstance(v, float) and not math.isfinite(v):
             continue
-        if isinstance(v, float):
+        if isinstance(v, str) and key.endswith("_SigPi"):
+            fmt = v
+        elif isinstance(v, float) and key.endswith("_qF"):
+            fmt = fmt_qf(v)
+        elif isinstance(v, float) and key.endswith("_re"):
+            fmt = f"{v:.4f}".rstrip("0").rstrip(".")
+        elif isinstance(v, float) and (
+            "BOpbe0" in key or key.endswith("_HFbo") or key.endswith("_HFpi")
+        ):
+            fmt = fmt_display_bo(v)
+        elif isinstance(v, float):
             if "ha" in key.lower():
                 fmt = f"{v:.7f}".rstrip("0").rstrip(".")
             elif abs(v) >= 100 or (abs(v) < 0.01 and v != 0):
@@ -142,20 +223,24 @@ def macros_tex(entries: dict) -> str:
                 fmt = f"{v:.4f}".rstrip("0").rstrip(".")
         else:
             fmt = str(v)
-        tex_key = "".join(c for c in key if c.isalnum())
-        lines.append(f"\\newcommand{{\\Data{tex_key}}}{{{fmt}}}")
+        macro = tex_macro_name(key)
+        lines.append(f"\\newcommand{{\\{macro}}}{{{fmt}}}")
     lines.append("")
     return "\n".join(lines)
 
 
 def main():
     entries = manifest_from_results()
+    table4_only = {k: v for k, v in entries.items() if k.startswith("Design")}
     GENERATED_DIR.mkdir(parents=True, exist_ok=True)
     with open(MANIFEST_JSON, "w") as f:
         json.dump(entries, f, indent=2, sort_keys=True)
+    with open(TABLE4_MANIFEST_JSON, "w") as f:
+        json.dump(table4_only, f, indent=2, sort_keys=True)
     with open(MACROS_TEX, "w") as f:
         f.write(macros_tex(entries))
     print(f"Wrote {MANIFEST_JSON} ({len(entries)} numbers)")
+    print(f"Wrote {TABLE4_MANIFEST_JSON} ({len(table4_only)} Table-4 fields)")
     print(f"Wrote {MACROS_TEX}")
 
 

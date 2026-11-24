@@ -1,0 +1,31 @@
+{
+  "triple_bond_complexes": {
+    "Ti_series": [
+      {"name": "Bare [TiF]3+ (reference)", "charge": 3, "r_e": 1.574, "BO": 2.036, "sigma": 0.74, "pi": 1.28, "q_F": 0.68},
+      {"name": "[F-Ti(CF3)]2+", "charge": 2, "r_e": 1.600, "BO": 1.465, "sigma": 0.336, "pi": 0.957, "q_F": 0.187},
+      {"name": "[F-Ti(CF3)2]+", "charge": 1, "r_e": 1.620, "BO": 1.299, "sigma": 0.541, "pi": 0.694, "q_F": 0.074},
+      {"name": "[F-Ti(CN)2]+", "charge": 1, "r_e": 1.620, "BO": 1.310, "sigma": 0.517, "pi": 0.729, "q_F": 0.103},
+      {"name": "(C6F6)2...[TiF]3+", "charge": 3, "r_e": 1.710, "BO": 0.971, "sigma": 0.408, "pi": 0.510, "q_F": -0.061},
+      {"name": "[TiF]3+@C20H20", "charge": 3, "r_e": 1.580, "BO": 0.775, "sigma": 0.357, "pi": 0.347, "q_F": 0.208}
+    ],
+    "Mo_W_series": [
+      {"name": "Bare [MoF]5+ (reference)", "charge": 5, "r_e": 1.671, "BO": 2.580, "sigma": 0.85, "pi": 1.69, "q_F": 1.05},
+      {"name": "Bare [WF]5+ (reference)", "charge": 5, "r_e": 1.676, "BO": 2.481, "sigma": 0.82, "pi": 1.63, "q_F": 0.91},
+      {"name": "[F-W(CF3)2]3+", "charge": 3, "r_e": 1.680, "BO": 1.593, "sigma": 0.760, "pi": 0.699, "q_F": 0.305},
+      {"name": "[F-Mo(CF3)2]3+", "charge": 3, "r_e": 1.680, "BO": 1.568, "sigma": 0.734, "pi": 0.764, "q_F": 0.278},
+      {"name": "[F-W(CN)2]3+", "charge": 3, "r_e": 1.680, "BO": 1.586, "sigma": 0.722, "pi": 0.726, "q_F": 0.311},
+      {"name": "[F-Mo(CN)2]3+", "charge": 3, "r_e": 1.680, "BO": 1.553, "sigma": 0.687, "pi": 0.791, "q_F": 0.288},
+      {"name": "[F-W(CF3)3]2+", "charge": 2, "r_e": 1.700, "BO": 1.504, "sigma": 0.668, "pi": 0.673, "q_F": 0.226},
+      {"name": "[F-Mo(CF3)3]2+", "charge": 2, "r_e": 1.700, "BO": 1.479, "sigma": 0.572, "pi": 0.788, "q_F": 0.191},
+      {"name": "[F-W(CN)4]+", "charge": 1, "r_e": 1.761, "BO": 1.343, "sigma": 0.648, "pi": 0.593, "q_F": 0.135},
+      {"name": "[F-W(CF3)4]+", "charge": 1, "r_e": 1.774, "BO": 1.311, "sigma": 0.658, "pi": 0.562, "q_F": 0.109}
+    ],
+    "N_series": [
+      {"name": "Bare [NF]2+ (reference)", "charge": 2, "r_e": 1.086, "BO": 2.427, "sigma": 0.92, "pi": 1.50, "q_F": 1.05},
+      {"name": "[F-N-CF3]3+", "charge": 3, "r_e": 1.150, "BO": 1.764, "sigma": 0.860, "pi": 0.903, "q_F": 0.762},
+      {"name": "[F-N-CO]2+", "charge": 2, "r_e": 1.150, "BO": 1.584, "sigma": 0.885, "pi": 0.699, "q_F": 0.545},
+      {"name": "[F-N-CN]+", "charge": 1, "r_e": 1.150, "BO": 1.312, "sigma": 0.885, "pi": 0.427, "q_F": 0.343},
+      {"name": "[NF]2+@C20H20", "charge": 2, "r_e": 1.090, "BO": 1.209, "sigma": 0.683, "pi": 0.525, "q_F": 0.458}
+    ]
+  }
+}

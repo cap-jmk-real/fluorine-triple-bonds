@@ -1,0 +1,110 @@
+{
+  "Engineered (C6F6)2...CF+": {
+    "n_atoms": 26,
+    "r_e_A": 1.19,
+    "BO": 1.555,
+    "sigma": 0.836,
+    "pi": 0.72,
+    "q_X": 0.152,
+    "q_F": 0.296,
+    "q_host": 0.552,
+    "converged": true,
+    "time_s": 144.1
+  },
+  "Engineered (C6F6)2...[TiF]3+": {
+    "n_atoms": 26,
+    "r_e_A": 1.71,
+    "BO": 0.971,
+    "sigma": 0.408,
+    "pi": 0.51,
+    "q_X": 0.822,
+    "q_F": -0.061,
+    "q_host": 2.239,
+    "converged": true,
+    "time_s": 757.0
+  },
+  "Engineered [F-W(CN)4]+": {
+    "n_atoms": 10,
+    "r_e_A": 1.761,
+    "BO": 1.343,
+    "sigma": 0.648,
+    "pi": 0.593,
+    "q_X": 0.62,
+    "q_F": 0.135,
+    "q_host": 0.245,
+    "converged": true,
+    "time_s": 43.4
+  },
+  "Engineered [F-W(CF3)4]+": {
+    "n_atoms": 18,
+    "r_e_A": 1.774,
+    "BO": 1.311,
+    "sigma": 0.658,
+    "pi": 0.562,
+    "q_X": 0.533,
+    "q_F": 0.109,
+    "q_host": 0.358,
+    "converged": true,
+    "time_s": 198.0
+  },
+  "Baseline [F-V(CH3)3]+": {
+    "n_atoms": 14,
+    "r_e_A": 1.64,
+    "BO": 1.257,
+    "sigma": 0.466,
+    "pi": 0.762,
+    "q_X": 0.684,
+    "q_F": 0.023,
+    "q_host": 0.293,
+    "converged": true,
+    "time_s": 18.4
+  },
+  "Engineered [F-V(CN)3]+": {
+    "n_atoms": 8,
+    "r_e_A": 1.64,
+    "BO": 1.296,
+    "sigma": 0.476,
+    "pi": 0.794,
+    "q_X": 0.639,
+    "q_F": 0.102,
+    "q_host": 0.259,
+    "converged": true,
+    "time_s": 20.6
+  },
+  "Engineered [F-V(CF3)3]+": {
+    "n_atoms": 14,
+    "r_e_A": 1.64,
+    "BO": 1.358,
+    "sigma": 0.457,
+    "pi": 0.865,
+    "q_X": 0.608,
+    "q_F": 0.086,
+    "q_host": 0.305,
+    "converged": true,
+    "time_s": 55.4
+  },
+  "Engineered peri-C10F6-W(CN)2F+": {
+    "n_atoms": 22,
+    "r_e_A": 1.797,
+    "BO": 1.281,
+    "sigma": 0.602,
+    "pi": 0.548,
+    "q_X": 0.503,
+    "q_F": 0.038,
+    "q_host": 0.459,
+    "converged": true,
+    "time_s": 227.9
+  },
+  "Insulating sp3 CF+@C20H20": {
+    "n_atoms": 42,
+    "r_e_A": 1.08,
+    "BO": 1.373,
+    "sigma": 0.804,
+    "pi": 0.569,
+    "q_X": 0.041,
+    "q_F": 0.405,
+    "q_host": 0.554,
+    "converged": true,
+    "time_s": 165.4
+  }
+}

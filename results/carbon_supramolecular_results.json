@@ -1,0 +1,122 @@
+{
+  "Bare CF+ (reference)": {
+    "n_atoms": 2,
+    "r_e_A": 1.157,
+    "BO": 1.869,
+    "sigma": 0.858,
+    "pi": 1.012,
+    "q_X": 0.576,
+    "q_F": 0.424,
+    "q_host": 0.0,
+    "converged": true,
+    "time_s": 1.9
+  },
+  "Endohedral CF+@C20": {
+    "n_atoms": 22,
+    "r_e_A": 1.134,
+    "BO": 1.012,
+    "sigma": 0.721,
+    "pi": 0.292,
+    "q_X": 0.003,
+    "q_F": 0.348,
+    "q_host": 0.649,
+    "converged": true,
+    "time_s": 150.0
+  },
+  "Supramolecular CF+@C18": {
+    "n_atoms": 20,
+    "r_e_A": 1.2,
+    "BO": 1.565,
+    "sigma": 0.818,
+    "pi": 0.747,
+    "q_X": 0.301,
+    "q_F": 0.279,
+    "q_host": 0.421,
+    "converged": false,
+    "time_s": 247.7
+  },
+  "Sandwich (C6H6)2...CF+": {
+    "n_atoms": 26,
+    "r_e_A": 1.2,
+    "BO": 1.564,
+    "sigma": 0.829,
+    "pi": 0.735,
+    "q_X": 0.171,
+    "q_F": 0.298,
+    "q_host": 0.531,
+    "converged": true,
+    "time_s": 56.2
+  },
+  "Endohedral [TiF]3+@C20": {
+    "n_atoms": 22,
+    "r_e_A": 1.5,
+    "BO": 0.072,
+    "sigma": 0.054,
+    "pi": -0.053,
+    "q_X": -1.199,
+    "q_F": 0.429,
+    "q_host": 3.77,
+    "converged": true,
+    "time_s": 179.4
+  },
+  "Supramolecular [TiF]3+@C18": {
+    "n_atoms": 20,
+    "r_e_A": 1.75,
+    "BO": 1.192,
+    "sigma": 0.498,
+    "pi": 0.656,
+    "q_X": 1.096,
+    "q_F": -0.079,
+    "q_host": 1.983,
+    "converged": false,
+    "time_s": 413.2
+  },
+  "Supramolecular [F-WH4]+@C18": {
+    "n_atoms": 24,
+    "r_e_A": 1.806,
+    "BO": 1.256,
+    "sigma": 0.623,
+    "pi": 0.55,
+    "q_X": 0.598,
+    "q_F": 0.008,
+    "q_host": 0.394,
+    "converged": true,
+    "time_s": 389.7
+  },
+  "Carbon-Cage [F-W(CH3)4]+": {
+    "n_atoms": 18,
+    "r_e_A": 1.778,
+    "BO": 1.272,
+    "sigma": 0.634,
+    "pi": 0.545,
+    "q_X": 0.766,
+    "q_F": 0.058,
+    "q_host": 0.177,
+    "converged": true,
+    "time_s": 31.4
+  },
+  "Half-Sandwich Cp-W(F)3": {
+    "n_atoms": 14,
+    "r_e_A": 1.872,
+    "BO": 1.06,
+    "sigma": 0.456,
+    "pi": 0.509,
+    "q_X": 0.011,
+    "q_F": -0.135,
+    "q_host": 0.124,
+    "converged": true,
+    "time_s": 30.0
+  },
+  "Intramol. peri-Naphth-WH2F+": {
+    "n_atoms": 20,
+    "r_e_A": 1.81,
+    "BO": 1.207,
+    "sigma": 0.559,
+    "pi": 0.537,
+    "q_X": 0.585,
+    "q_F": -0.006,
+    "q_host": 0.422,
+    "converged": true,
+    "time_s": 109.3
+  }
+}

@@ -1,0 +1,186 @@
+{
+  "equatorial_organic": {
+    "OMe": {
+      "r_e_A": 1.674,
+      "BO": 1.1,
+      "sigma": 0.541,
+      "pi": 0.536,
+      "q_M": 0.574,
+      "q_F": -0.044,
+      "converged": true,
+      "time_s": 39.8
+    },
+    "CH3": {
+      "r_e_A": 1.639,
+      "BO": 1.264,
+      "sigma": 0.475,
+      "pi": 0.759,
+      "q_M": 0.706,
+      "q_F": 0.029,
+      "converged": true,
+      "time_s": 22.3
+    },
+    "CH2F": {
+      "r_e_A": 1.637,
+      "BO": 1.302,
+      "sigma": 0.453,
+      "pi": 0.817,
+      "q_M": 0.582,
+      "q_F": 0.043,
+      "converged": true,
+      "time_s": 35.7
+    },
+    "CHF2": {
+      "r_e_A": 1.636,
+      "BO": 1.31,
+      "sigma": 0.436,
+      "pi": 0.842,
+      "q_M": 0.532,
+      "q_F": 0.051,
+      "converged": true,
+      "time_s": 52.9
+    },
+    "CF3": {
+      "r_e_A": 1.623,
+      "BO": 1.365,
+      "sigma": 0.459,
+      "pi": 0.867,
+      "q_M": 0.606,
+      "q_F": 0.107,
+      "converged": true,
+      "time_s": 71.6
+    },
+    "CH=CH2": {
+      "r_e_A": 1.665,
+      "BO": 1.174,
+      "sigma": 0.513,
+      "pi": 0.63,
+      "q_M": 0.591,
+      "q_F": -0.031,
+      "converged": true,
+      "time_s": 42.3
+    },
+    "CF=CF2": {
+      "r_e_A": 1.67,
+      "BO": 1.248,
+      "sigma": 0.502,
+      "pi": 0.724,
+      "q_M": 0.448,
+      "q_F": -0.019,
+      "converged": false,
+      "time_s": 83.6
+    },
+    "C#CH": {
+      "r_e_A": 1.642,
+      "BO": 1.239,
+      "sigma": 0.474,
+      "pi": 0.74,
+      "q_M": 0.604,
+      "q_F": 0.043,
+      "converged": true,
+      "time_s": 30.9
+    },
+    "C#C-CN": {
+      "r_e_A": 1.66,
+      "BO": 1.243,
+      "sigma": 0.484,
+      "pi": 0.736,
+      "q_M": 0.6,
+      "q_F": 0.032,
+      "converged": true,
+      "time_s": 61.0
+    },
+    "Ph": {
+      "r_e_A": 1.7,
+      "BO": 1.151,
+      "sigma": 0.48,
+      "pi": 0.636,
+      "q_M": 0.696,
+      "q_F": -0.085,
+      "converged": true,
+      "time_s": 174.4
+    },
+    "C6F5": {
+      "r_e_A": 1.66,
+      "BO": 1.184,
+      "sigma": 0.471,
+      "pi": 0.689,
+      "q_M": 0.425,
+      "q_F": -0.08,
+      "converged": false,
+      "time_s": 1843.5
+    },
+    "CH(CN)2": {
+      "r_e_A": 1.66,
+      "BO": 1.255,
+      "sigma": 0.486,
+      "pi": 0.74,
+      "q_M": 0.779,
+      "q_F": 0.021,
+      "converged": true,
+      "time_s": 112.8
+    },
+    "OTf": {
+      "r_e_A": 1.64,
+      "BO": 1.27,
+      "sigma": 0.548,
+      "pi": 0.692,
+      "q_M": 0.698,
+      "q_F": 0.059,
+      "converged": false,
+      "time_s": 341.2
+    }
+  },
+  "trans_organic": {
+    "NHC": {
+      "r_e_A": 1.68,
+      "BO": 1.212,
+      "sigma": 0.295,
+      "pi": 0.891,
+      "q_M": 0.315,
+      "q_F": -0.032,
+      "converged": true,
+      "time_s": 126.5
+    },
+    "py": {
+      "r_e_A": 1.68,
+      "BO": 1.244,
+      "sigma": 0.324,
+      "pi": 0.893,
+      "q_M": 0.407,
+      "q_F": -0.01,
+      "converged": true,
+      "time_s": 174.5
+    },
+    "C5F5N": {
+      "r_e_A": 1.68,
+      "BO": 1.238,
+      "sigma": 0.368,
+      "pi": 0.844,
+      "q_M": 0.348,
+      "q_F": -0.011,
+      "converged": true,
+      "time_s": 317.5
+    },
+    "CN-CH3": {
+      "r_e_A": 1.68,
+      "BO": 1.257,
+      "sigma": 0.323,
+      "pi": 0.904,
+      "q_M": 0.339,
+      "q_F": -0.004,
+      "converged": true,
+      "time_s": 92.3
+    },
+    "CN-CF3": {
+      "r_e_A": 1.68,
+      "BO": 1.271,
+      "sigma": 0.33,
+      "pi": 0.91,
+      "q_M": 0.34,
+      "q_F": 0.007,
+      "converged": true,
+      "time_s": 116.1
+    }
+  }
+}

@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.chk
+*.h5
+*.molden
+*.log
+.ipynb_checkpoints/

@@ -1,8 +1,8 @@
 # Can Fluorine Form Triple Bonds? Code, data and manuscript source
 
-Staging repository for the computational study on Mn–F multiple bonding by Julian M. Kleber (ORCID [0000-0001-5518-0932](https://orcid.org/0000-0001-5518-0932)).
+Repository for the computational study on Mn–F multiple bonding by Julian M. Kleber (ORCID [0000-0001-5518-0932](https://orcid.org/0000-0001-5518-0932)).
 
-**Status: private staging copy.** The files are an as-is snapshot of the working project (`fluorine-snap-1124.tgz`, 24 Nov 2026). The manuscript in `paper/` is the 22 Nov 2026 source and still carries the earlier title; the current preprint title is *Can Fluorine Form Triple Bonds? Relativistic Multireference Electronic Structure, σ/π Bond-Order Decomposition, and All-Electron vs. ECP Audit of Transition-Metal Monofluorides* (ChemRxiv). Manuscript fixes will land here through pull requests. Nothing has been changed for this release yet.
+**Status:** public code and data release. The files are an as-is snapshot of the working project (`fluorine-snap-1124.tgz`, 24 Nov 2026). The manuscript in `paper/` is the 22 Nov 2026 source and still carries the earlier title; the current preprint title is *Can Fluorine Form Triple Bonds? Relativistic Multireference Electronic Structure, σ/π Bond-Order Decomposition, and All-Electron vs. ECP Audit of Transition-Metal Monofluorides* (ChemRxiv). Manuscript fixes will land here through pull requests. Nothing has been changed for this release yet.
 
 ## Layout
 
@@ -26,10 +26,12 @@ python scripts/smoke_pyscf.py               # quick installation check
 python scripts/reproduce_preprint_tables.py # recompute Tables 1-2 reference values
 ```
 
-## Licences (proposal, pending author approval)
+## Licence
 
-- Code (`scripts/`): MIT, see `LICENSE`.
-- Data, figures and manuscript text (`results/`, `figures/`, `paper/`, `preprint_handin/`): CC BY 4.0, see `LICENSE-DATA`.
+- **Code** (`scripts/`): MIT License, see [`LICENSE`](LICENSE).
+- **Paper and data** (`paper/`, `figures/`, `preprint_handin/`, `results/`): Creative Commons Attribution 4.0 International (CC BY 4.0), see [`LICENSE-CC-BY-4.0`](LICENSE-CC-BY-4.0).
+
+When you reuse the data or figures, credit Julian M. Kleber and cite the preprint.
 
 ## Citation
 

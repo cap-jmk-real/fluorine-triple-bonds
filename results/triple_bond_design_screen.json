@@ -1,0 +1,302 @@
+{
+  "meta": {
+    "pyscf_version": "2.15.1",
+    "numpy_version": "2.5.5",
+    "python_version": "3.12.3",
+    "platform": "Linux-6.12.113+-x86_64-with-glibc2.39",
+    "scf_max_cycle_default": 150,
+    "scf_level_shift_default": 0.1,
+    "optimize_xatol": 0.005,
+    "blas_info_excerpt": "Build Dependencies:\n  blas:\n    detection method: pkgconfig\n    found: true\n    include directory: /opt/_internal/cpython-3.12.16/lib/python3.12/site-packages/scipy_openblas64/include\n    lib directory: /opt/_internal/cpython-3.12.16/lib/python3.12/site-packages/scipy_openblas64/lib\n    name: scipy-openblas\n    openblas configuration: OpenBLAS 0.3.34.237.2  USE64BITINT DYNAMIC_ARCH NO_AFFINITY\n      SkylakeX MAX_THREADS=64\n    pc file directory: /project/.openblas\n    version: 0.3.34.237.2\n  lapack:\n    detection method: pkgconfig\n    found: true\n    include directory: /opt/_internal/cpython-3.12.16/lib/python3.12/site-packages/scipy_openblas64/include\n    lib directory: /opt/_internal/cpython-3.12.16/lib/python3.12/site-packages/scipy_openblas64/lib\n    name: scipy-openblas\n    openblas configuration: OpenBLAS 0.3.34.237.2  USE64BITINT DYNAMIC_ARCH NO_AFFINITY\n      SkylakeX MAX_THREADS=64\n    pc file directory: /project/.openblas\n    version: 0.3.34.237.2\nCompilers:\n  c:\n    commands: cc\n    linker: ld.bfd\n    name: gcc\n    version: 14.2.1\n  c++:\n    commands: c++\n    linker: ld.bfd\n    name: gcc\n    version: 14.2.1\n  cython:\n    commands: cython\n    linker: cython\n    name: cython\n    version: 3.3.1\nMachine Information:\n  build:\n    cpu: x86_64\n    endian: little\n    family: x86_64\n    system: linux\n  host:\n    cpu: x86_64\n    endian: little\n    family: x86_64\n    system: linux\nPython Information:\n  path: /tmp/build-env-zqq_wkgx/bin/python\n  version: '3.12'\nSIMD Extensions:\n  baseline:\n  - X86_V2\n  found:\n  - X86_V3\n  - X86_V4\n  - AVX512_ICL\n  - AVX512_SPR\n\n"
+  },
+  "candidates": [
+    {
+      "name": "BF (neutral, 1S+)",
+      "charge": 0,
+      "spin": 0,
+      "bound": true,
+      "r_e_ang": 1.2619,
+      "e_pbe0_ha": -124.668716,
+      "pbe0": {
+        "mayer_total": 1.5055,
+        "mayer_sigma": 0.7409,
+        "mayer_pi": 0.7531,
+        "q_F": 0.5236,
+        "q_X": -0.5236
+      },
+      "hf": {
+        "mayer_total": 1.3395,
+        "mayer_sigma": 0.7091,
+        "mayer_pi": 0.6186,
+        "q_F": 0.4618,
+        "q_X": -0.4618
+      }
+    },
+    {
+      "name": "CF+ (1S+, benchmark)",
+      "charge": 1,
+      "spin": 0,
+      "bound": true,
+      "r_e_ang": 1.1532,
+      "e_pbe0_ha": -137.448934,
+      "pbe0": {
+        "mayer_total": 1.9849,
+        "mayer_sigma": 0.8841,
+        "mayer_pi": 1.0927,
+        "q_F": 0.7443,
+        "q_X": 0.2557
+      },
+      "hf": {
+        "mayer_total": 1.8194,
+        "mayer_sigma": 0.872,
+        "mayer_pi": 0.9389,
+        "q_F": 0.6689,
+        "q_X": 0.3311
+      }
+    },
+    {
+      "name": "NF2+ (1S+, dication)",
+      "charge": 2,
+      "spin": 0,
+      "bound": true,
+      "r_e_ang": 1.0859,
+      "e_pbe0_ha": -153.118835,
+      "pbe0": {
+        "mayer_total": 2.4271,
+        "mayer_sigma": 0.918,
+        "mayer_pi": 1.5024,
+        "q_F": 1.05,
+        "q_X": 0.95
+      },
+      "hf": {
+        "mayer_total": 2.2863,
+        "mayer_sigma": 0.9181,
+        "mayer_pi": 1.3613,
+        "q_F": 0.9624,
+        "q_X": 1.0376
+      }
+    },
+    {
+      "name": "SiF+ (1S+)",
+      "charge": 1,
+      "spin": 0,
+      "bound": true,
+      "r_e_ang": 1.546,
+      "e_pbe0_ha": -389.56135,
+      "pbe0": {
+        "mayer_total": 1.4805,
+        "mayer_sigma": 0.6868,
+        "mayer_pi": 0.7698,
+        "q_F": 0.2381,
+        "q_X": 0.7619
+      },
+      "hf": {
+        "mayer_total": 1.3033,
+        "mayer_sigma": 0.6564,
+        "mayer_pi": 0.622,
+        "q_F": 0.1607,
+        "q_X": 0.8393
+      }
+    },
+    {
+      "name": "AlF (neutral, 1S+)",
+      "charge": 0,
+      "spin": 0,
+      "bound": true,
+      "r_e_ang": 1.6764,
+      "e_pbe0_ha": -342.694933,
+      "pbe0": {
+        "mayer_total": 1.1307,
+        "mayer_sigma": 0.5321,
+        "mayer_pi": 0.5778,
+        "q_F": 0.0488,
+        "q_X": -0.0488
+      },
+      "hf": {
+        "mayer_total": 0.9533,
+        "mayer_sigma": 0.4871,
+        "mayer_pi": 0.4451,
+        "q_F": -0.0208,
+        "q_X": 0.0208
+      }
+    },
+    {
+      "name": "F-B=O (linear, 0)",
+      "charge": 0,
+      "spin": 0,
+      "bound": true,
+      "r_e_ang": 1.2807,
+      "e_pbe0_ha": -200.016179,
+      "pbe0": {
+        "mayer_total": 1.3196,
+        "mayer_sigma": 0.7843,
+        "mayer_pi": 0.5301,
+        "q_F": 0.5072,
+        "q_X": -0.8434
+      },
+      "hf": {
+        "mayer_total": 1.2412,
+        "mayer_sigma": 0.7674,
+        "mayer_pi": 0.4689,
+        "q_F": 0.4618,
+        "q_X": -0.7404
+      }
+    },
+    {
+      "name": "[F-B-F]+ (linear, +1)",
+      "charge": 1,
+      "spin": 0,
+      "bound": true,
+      "r_e_ang": 1.2254,
+      "e_pbe0_ha": -224.29724,
+      "pbe0": {
+        "mayer_total": 1.6546,
+        "mayer_sigma": 0.83,
+        "mayer_pi": 0.8196,
+        "q_F": 0.7072,
+        "q_X": -0.4145
+      },
+      "hf": {
+        "mayer_total": 1.5486,
+        "mayer_sigma": 0.8167,
+        "mayer_pi": 0.728,
+        "q_F": 0.6511,
+        "q_X": -0.3022
+      }
+    },
+    {
+      "name": "[F-B-H]+ (linear, +1)",
+      "charge": 1,
+      "spin": 0,
+      "bound": true,
+      "r_e_ang": 1.211,
+      "e_pbe0_ha": -124.965309,
+      "pbe0": {
+        "mayer_total": 1.7497,
+        "mayer_sigma": 0.8108,
+        "mayer_pi": 0.9331,
+        "q_F": 0.7378,
+        "q_X": 0.2501
+      },
+      "hf": {
+        "mayer_total": 1.6055,
+        "mayer_sigma": 0.8014,
+        "mayer_pi": 0.7993,
+        "q_F": 0.6714,
+        "q_X": 0.3193
+      }
+    },
+    {
+      "name": "[F-C-F]2+ (linear, +2)",
+      "charge": 2,
+      "spin": 0,
+      "bound": true,
+      "r_e_ang": 1.1461,
+      "e_pbe0_ha": -236.576421,
+      "pbe0": {
+        "mayer_total": 2.0376,
+        "mayer_sigma": 0.9779,
+        "mayer_pi": 1.0528,
+        "q_F": 0.9372,
+        "q_X": 0.1256
+      },
+      "hf": {
+        "mayer_total": 1.9557,
+        "mayer_sigma": 0.9763,
+        "mayer_pi": 0.9726,
+        "q_F": 0.8691,
+        "q_X": 0.2617
+      }
+    },
+    {
+      "name": "[F-C=O]+ (linear, +1)",
+      "charge": 1,
+      "spin": 0,
+      "bound": true,
+      "r_e_ang": 1.1953,
+      "e_pbe0_ha": -212.778302,
+      "pbe0": {
+        "mayer_total": 1.5976,
+        "mayer_sigma": 0.9457,
+        "mayer_pi": 0.6454,
+        "q_F": 0.6565,
+        "q_X": -0.2291
+      },
+      "hf": {
+        "mayer_total": 1.523,
+        "mayer_sigma": 0.9427,
+        "mayer_pi": 0.5738,
+        "q_F": 0.6012,
+        "q_X": -0.1253
+      }
+    },
+    {
+      "name": "[ScF]2+ (d0, 1S+)",
+      "charge": 2,
+      "spin": 0,
+      "bound": true,
+      "r_e_ang": 1.6715,
+      "e_pbe0_ha": -863.224385,
+      "pbe0": {
+        "mayer_total": 1.5845,
+        "mayer_sigma": 0.6457,
+        "mayer_pi": 0.9149,
+        "q_F": 0.4309,
+        "q_X": 1.5691
+      },
+      "hf": {
+        "mayer_total": 1.332,
+        "mayer_sigma": 0.5712,
+        "mayer_pi": 0.7329,
+        "q_F": 0.2954,
+        "q_X": 1.7046
+      }
+    },
+    {
+      "name": "[TiF]3+ (d0, 1S+)",
+      "charge": 3,
+      "spin": 0,
+      "bound": true,
+      "r_e_ang": 1.5739,
+      "e_pbe0_ha": -951.655972,
+      "pbe0": {
+        "mayer_total": 2.0361,
+        "mayer_sigma": 0.7443,
+        "mayer_pi": 1.2754,
+        "q_F": 0.6793,
+        "q_X": 2.3207
+      },
+      "hf": {
+        "mayer_total": 1.799,
+        "mayer_sigma": 0.7519,
+        "mayer_pi": 1.027,
+        "q_F": 0.5202,
+        "q_X": 2.4798
+      }
+    },
+    {
+      "name": "[YF]2+ (4d0, 1S+)",
+      "charge": 2,
+      "spin": 0,
+      "bound": true,
+      "r_e_ang": 1.8188,
+      "e_pbe0_ha": -3483.874419,
+      "pbe0": {
+        "mayer_total": 1.4577,
+        "mayer_sigma": 0.579,
+        "mayer_pi": 0.8317,
+        "q_F": 0.3156,
+        "q_X": 1.6844
+      },
+      "hf": {
+        "mayer_total": 1.2201,
+        "mayer_sigma": 0.4971,
+        "mayer_pi": 0.6704,
+        "q_F": 0.1987,
+        "q_X": 1.8013
+      }
+    }
+  ],
+  "elapsed_s": 1436.7,
+  "status": "partial"
+}

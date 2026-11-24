@@ -1,0 +1,94 @@
+{
+  "CFplus_BO": {
+    "source": "ab_initio_results.json:CF+ at_min",
+    "value": 1.854
+  },
+  "CFplus_re_ang": {
+    "source": "ab_initio_results.json:CF+",
+    "value": 1.1596
+  },
+  "MnF1_deltaE_eV": {
+    "source": "ab_initio_results.json:derived NEVPT2 minima",
+    "value": 5.52
+  },
+  "MnF5_deltaE_eV": {
+    "source": "ab_initio_results.json:derived NEVPT2 minima",
+    "value": -0.245
+  },
+  "MnF7_BO": {
+    "source": "ab_initio_results.json:MnF_neutral/7Sigma+/at_min/bond_cas",
+    "value": 0.617
+  },
+  "MnF7_omega_cm1": {
+    "source": "ab_initio_results.json:MnF_neutral/7Sigma+/spec_nevpt2",
+    "value": 606.8
+  },
+  "MnF7_qF": {
+    "source": "ab_initio_results.json:MnF_neutral/7Sigma+/at_min/bond_cas",
+    "value": -0.339
+  },
+  "MnF7_re_ang": {
+    "source": "ab_initio_results.json:MnF_neutral/7Sigma+/spec_nevpt2",
+    "value": 1.8341
+  },
+  "MoF5plus_BO_pbe0": {
+    "source": "extreme_bo_results.json",
+    "value": 2.5796
+  },
+  "NF_BO": {
+    "source": "ab_initio_results.json:NF at_min",
+    "value": 1.058
+  },
+  "NF_piBO": {
+    "source": "ab_initio_results.json:NF at_min",
+    "value": 0.319
+  },
+  "NF_re_ang": {
+    "source": "ab_initio_results.json:NF",
+    "value": 1.3136
+  },
+  "OF3_cc-pVDZ-DK_BO_pbe0": {
+    "source": "complementary_bonding_checks.json:of3plus_basis/cc-pVDZ-DK",
+    "value": 2.6437
+  },
+  "OF3_cc-pVTZ-DK_BO_pbe0": {
+    "source": "complementary_bonding_checks.json:of3plus_basis/cc-pVTZ-DK",
+    "value": 2.7446
+  },
+  "OF3plus_BO_hf": {
+    "source": "extreme_bo_results.json",
+    "value": 2.6816
+  },
+  "OF3plus_BO_pbe0": {
+    "source": "extreme_bo_results.json",
+    "value": 2.7446
+  },
+  "OF3plus_pi_pbe0": {
+    "source": "extreme_bo_results.json",
+    "value": 1.8495
+  },
+  "OF3plus_re_ang": {
+    "source": "extreme_bo_results.json",
+    "value": 1.0784
+  },
+  "WF5plus_BO_pbe0": {
+    "source": "extreme_bo_results.json",
+    "value": 2.4814
+  },
+  "forensic_bs_S2": {
+    "source": "forensic_mnf_reproduction.json",
+    "value": 1.978
+  },
+  "forensic_bs_delta_eV": {
+    "source": "forensic_mnf_reproduction.json",
+    "value": -2.939
+  },
+  "forensic_bs_energy_ha": {
+    "source": "forensic_mnf_reproduction.json",
+    "value": -1249.1697639
+  },
+  "forensic_mean_uhf_offset_mha": {
+    "source": "forensic_mnf_reproduction.json",
+    "value": -31.59
+  }
+}

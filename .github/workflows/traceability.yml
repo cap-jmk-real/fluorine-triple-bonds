@@ -1,0 +1,30 @@
+name: Manuscript traceability
+
+on:
+  push:
+    branches: [main, 'cursor/**']
+  pull_request:
+
+jobs:
+  traceability:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyscf numpy scipy matplotlib pytest
+
+      - name: Forensic MnF reproduction (fast)
+        run: python scripts/reproduce_preprint_tables.py
+
+      - name: Regenerate LaTeX macros
+        run: python scripts/emit_manuscript_macros.py
+
+      - name: Drift check
+        run: pytest tests/test_manuscript_traceability.py -q

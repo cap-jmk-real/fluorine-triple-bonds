@@ -1,0 +1,4 @@
+  [OF]3+ (cc-pVDZ-DK)    | bound=True  | r_e=1.0717 A | PBE0 BO=2.644 (sig=0.804, pi=1.839) qF=+1.399 | HF BO=2.584 (pi=1.760)
+  [OF]3+ (cc-pVTZ-DK)    | bound=True  | r_e=1.0784 A | PBE0 BO=2.745 (sig=0.889, pi=1.849) qF=+1.456 | HF BO=2.682 (pi=1.776)
+ Iterative localization: IB/P4/2x2, 10 iter; Final gradient 1.47e-09
+Wrote /workspace/results/complementary_bonding_checks.json

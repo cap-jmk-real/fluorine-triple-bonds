@@ -2,7 +2,7 @@
 
 Staging repository for the computational study on Mn–F multiple bonding by Julian M. Kleber (ORCID [0000-0001-5518-0932](https://orcid.org/0000-0001-5518-0932)).
 
-**Status: private staging copy.** The files are an as-is snapshot of the working project (`fluorine-snap-1124.tgz`, 24 Nov 2026). The manuscript in `paper/` is the 22 Nov 2026 source and still carries the earlier title; the current preprint title is *Can Fluorine Form Triple Bonds? Relativistic Multireference Electronic Structure, σ/π Bond-Order Decomposition, and All-Electron vs. ECP Audit of Transition-Metal Monofluorides* (ChemRxiv). Manuscript fixes will land here through pull requests. Nothing has been changed for this release yet.
+**Status: publication-evidence hardening** (traceable JSON, macro-generated headline numbers, CI drift checks). Manuscript: *Fluorine Multiple Bonding in Monofluoride Cations: A Relativistic All-Electron Audit* (journal-neutral; ChemRxiv preprint DOI [10.26434/chemrxiv-2022-xlsjn-v3](https://doi.org/10.26434/chemrxiv-2022-xlsjn-v3)).
 
 ## Layout
 
@@ -21,9 +21,13 @@ Molecular geometries are defined inside the scripts (e.g. bond lengths in `repro
 Python 3 with `pyscf`, `numpy`, `scipy` and `matplotlib`. Multireference runs (CASSCF/NEVPT2, X2C) are CPU- and memory-intensive.
 
 ```bash
-pip install pyscf numpy scipy matplotlib
-python scripts/smoke_pyscf.py               # quick installation check
-python scripts/reproduce_preprint_tables.py # recompute Tables 1-2 reference values
+pip install -r requirements.txt
+python scripts/smoke_pyscf.py                    # quick installation check
+python scripts/reproduce_preprint_tables.py      # forensic Table 1 + forensic_mnf_reproduction.json
+python scripts/extreme_fluorine_bo.py            # extreme_bo_results.json (resumes partial files)
+python scripts/design_fluorine_triple_bonds.py   # triple_bond_design_screen.json
+python scripts/emit_manuscript_macros.py       # paper/generated/macros.tex + manifest
+pytest tests/test_manuscript_traceability.py     # drift check (CI runs this)
 ```
 
 ## Licences (proposal, pending author approval)

@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "pyscf_version": "2.15.1",
+    "basis": "cc-pVTZ",
+    "method": "UHF",
+    "scf_max_cycle": 200,
+    "python_version": "3.12.3",
+    "platform": "Linux-6.12.113+-x86_64-with-glibc2.39"
+  },
+  "table1_rows": [
+    {
+      "mult": 7,
+      "R_ang": 1.86563091,
+      "preprint_hf_ha": -1249.370195,
+      "pyscf_uhf_ha": -1249.4023806,
+      "diff_uhf_mha": -32.19,
+      "s2_uhf": 12.003,
+      "ump2_ha": -1250.1564934,
+      "uhf_stable": true
+    },
+    {
+      "mult": 5,
+      "R_ang": 1.76660973,
+      "preprint_hf_ha": -1249.217022,
+      "pyscf_uhf_ha": -1249.2480127,
+      "diff_uhf_mha": -30.99,
+      "s2_uhf": 6.019,
+      "ump2_ha": -1250.0869048,
+      "uhf_stable": true
+    },
+    {
+      "mult": 3,
+      "R_ang": 1.80542986,
+      "preprint_hf_ha": -1249.128642,
+      "pyscf_uhf_ha": -1249.09522,
+      "diff_uhf_mha": 33.42,
+      "s2_uhf": 2.699,
+      "ump2_ha": -1249.9667311,
+      "uhf_stable": true
+    },
+    {
+      "mult": 1,
+      "R_ang": 1.85863186,
+      "preprint_hf_ha": -1249.028371,
+      "pyscf_uhf_ha": -1249.0617646,
+      "diff_uhf_mha": -33.39,
+      "s2_uhf": 0.0,
+      "ump2_ha": -1249.9352976,
+      "uhf_stable": false,
+      "broken_sym_uhf_ha": -1249.1697639,
+      "delta_bs_ev": -2.939,
+      "s2_broken_sym": 1.978
+    }
+  ],
+  "uhf_preprint_offset_mha_mult_7_5_mean": -31.59,
+  "notes": {
+    "singlet_rhf_instability_ev": -2.939,
+    "broken_sym_energy_ha": -1249.1697639,
+    "hypothesis_basis_contraction_offset_mha": -32
+  }
+}

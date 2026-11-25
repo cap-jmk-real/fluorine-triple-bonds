@@ -147,13 +147,13 @@ def plot_curves():
     ax.set_title("(a) Main-Group Triple Bonds & Coulomb Barriers")
     ax.legend(frameon=True, facecolor="white", framealpha=0.96, edgecolor="#cccccc", fontsize=7.2, loc="lower right")
 
-    # (b) d^0 Transition-Metal Triple Bonds vs. Exploding CrF5+
+    # (b) d^0 transition-metal wells vs. shallow [CrF]5+
     ax = axes[0, 1]
     for idx, (k, lbl) in enumerate([
         ("TiF3+", r"$[\mathrm{TiF}]^{3+}$ ($3d^0$)"),
         ("MoF5+", r"$[\mathrm{MoF}]^{5+}$ ($4d^0$)"),
         ("WF5+",  r"$[\mathrm{WF}]^{5+}$ ($5d^0$)"),
-        ("CrF5+", r"$[\mathrm{CrF}]^{5+}$ ($3d^0$, repulsive)"),
+        ("CrF5+", r"$[\mathrm{CrF}]^{5+}$ ($3d^0$, shallow)"),
     ]):
         rs = np.array(data[k]["R"])
         es = np.array(data[k]["E_ha"])

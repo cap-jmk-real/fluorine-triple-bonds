@@ -9,12 +9,42 @@ comparison using X2C-PBE0 / cc-pVTZ-DK (plus X2C-CCSD / MP2 verification on top 
 """
 import json
 import os
+import platform
+import subprocess
+import sys
 import time
 import numpy as np
+import pyscf
 from pyscf import gto, dft, scf, mp
 from scipy import optimize
 
-OUT_JSON = "/home/s4il0r/.gemini/antigravity/scratch/fluorine-triple-bonds/results/triple_bond_design_screen.json"
+from repo_paths import RESULTS_DIR
+
+OUT_JSON = RESULTS_DIR / "triple_bond_design_screen.json"
+
+
+def collect_runtime_meta():
+    """Software versions, SCF thresholds, and BLAS info for reproducibility logs."""
+    blas = "unknown"
+    try:
+        blas = subprocess.check_output(
+            ["python3", "-c", "import numpy; numpy.show_config()"],
+            text=True,
+            stderr=subprocess.STDOUT,
+            timeout=30,
+        )[:4000]
+    except Exception as exc:
+        blas = f"show_config failed: {exc}"
+    return {
+        "pyscf_version": pyscf.__version__,
+        "numpy_version": np.__version__,
+        "python_version": sys.version.split()[0],
+        "platform": platform.platform(),
+        "scf_max_cycle_default": 150,
+        "scf_level_shift_default": 0.1,
+        "optimize_xatol": 5e-3,
+        "blas_info_excerpt": blas,
+    }
 
 
 def mayer_xf_bond_order(mol, dm, idx_X=0, idx_F=1):
@@ -157,17 +187,42 @@ def main():
             f"C -1.95 0 0; O -3.08 0 0; "
             f"C 0 1.95 0; O 0 3.08 0; "
             f"C 0 -1.95 0; O 0 -3.08 0"
-        ), 1, 1, (1.55, 2.00)),
+        ), 1, 0, (1.55, 2.00)),
         ("AuF (neutral, 1S+)",     lambda r: f"Au 0 0 0; F 0 0 {r}", 0, 0, (1.75, 2.15)),
-        ("[AuF]2+ (d8, 2S)",       lambda r: f"Au 0 0 0; F 0 0 {r}", 2, 1, (1.65, 2.20)),
+        ("[AuF]2+ (d8, 1S)",       lambda r: f"Au 0 0 0; F 0 0 {r}", 2, 0, (1.65, 2.20)),
     ]
 
     print("=== RATIONAL DESIGN SCREENING FOR FLUORINE TRIPLE BONDS (X2C-PBE0 / cc-pVTZ-DK) ===", flush=True)
     results = []
+    done_names: set[str] = set()
+    OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
+    if OUT_JSON.exists():
+        try:
+            prev = json.loads(OUT_JSON.read_text())
+            results = list(prev.get("candidates", []))
+            done_names = {c["name"] for c in results}
+            if done_names:
+                print(f"Resuming with {len(results)} cached candidates", flush=True)
+        except json.JSONDecodeError:
+            results = []
+
+    def flush_partial():
+        payload = {
+            "meta": collect_runtime_meta(),
+            "candidates": results,
+            "elapsed_s": round(time.time() - t0, 1),
+            "status": "partial" if len(results) < len(candidates) else "complete",
+        }
+        with open(OUT_JSON, "w") as f:
+            json.dump(payload, f, indent=2)
+
     for name, fn, q, spin, bounds in candidates:
+        if name in done_names:
+            continue
         try:
             r = eval_candidate(name, fn, q, spin, bounds)
             results.append(r)
+            flush_partial()
         except Exception as e:
             print(f"  {name:22s} | ERROR: {e}", flush=True)
 
@@ -177,8 +232,7 @@ def main():
         p = r["pbe0"]
         print(f"  {r['name']:22s} | r_e={r['r_e_ang']:.4f} A | BO={p['mayer_total']:.3f} (sig={p['mayer_sigma']:.3f}, pi={p['mayer_pi']:.3f}) | qF={p['q_F']:+.3f}")
 
-    with open(OUT_JSON, "w") as f:
-        json.dump({"candidates": results, "elapsed_s": round(time.time() - t0, 1)}, f, indent=2)
+    flush_partial()
     print(f"\nDONE in {time.time() - t0:.1f}s -> {OUT_JSON}", flush=True)
 
 

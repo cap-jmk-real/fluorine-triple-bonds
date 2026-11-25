@@ -5,25 +5,34 @@ Generate Figure 4 for Paper 1 (fig4_ligand_supramolecular_engineering.{png,pdf})
   (b) Unengineered vs. Engineered Carbon & Supramolecular Immobilization Hosts
   (c) Oriented Local Electric Field (LEF) on [F-V(CF3)3]+ breaking pi-BO > 1.0
 """
-import os
 import json
+import sys
+from pathlib import Path
+
 import numpy as np
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-RES_DIR = "/home/s4il0r/.gemini/antigravity/scratch/fluorine-triple-bonds/results"
-FIG_DIR = "/home/s4il0r/.gemini/antigravity/scratch/fluorine-triple-bonds/figures"
+_scripts = Path(__file__).resolve().parent
+if str(_scripts) not in sys.path:
+    sys.path.insert(0, str(_scripts))
+from repo_paths import FIGURES_DIR, RESULTS_DIR
+
+RES_DIR = RESULTS_DIR
+FIG_DIR = FIGURES_DIR
+FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def main():
-    with open(os.path.join(RES_DIR, "organic_ligand_screen.json")) as f:
+    with open(RES_DIR / "organic_ligand_screen.json") as f:
         org = json.load(f)
-    with open(os.path.join(RES_DIR, "f_pi_donor_ligand_study.json")) as f:
+    with open(RES_DIR / "f_pi_donor_ligand_study.json") as f:
         fpi = json.load(f)
-    with open(os.path.join(RES_DIR, "carbon_supramolecular_results.json")) as f:
+    with open(RES_DIR / "carbon_supramolecular_results.json") as f:
         csup = json.load(f)
-    with open(os.path.join(RES_DIR, "engineered_supramolecular_results.json")) as f:
+    with open(RES_DIR / "engineered_supramolecular_results.json") as f:
         eng = json.load(f)
 
     COLORS = ["#0072B2", "#D55E00", "#009E73", "#CC79A7", "#E69F00"]
@@ -109,8 +118,8 @@ def main():
     ax3.legend(frameon=True, facecolor="white", framealpha=0.96, edgecolor="#cccccc", fontsize=6.8, loc="upper left")
 
     plt.tight_layout()
-    out_png = os.path.join(FIG_DIR, "fig4_ligand_supramolecular_engineering.png")
-    out_pdf = os.path.join(FIG_DIR, "fig4_ligand_supramolecular_engineering.pdf")
+    out_png = FIG_DIR / "fig4_ligand_supramolecular_engineering.png"
+    out_pdf = FIG_DIR / "fig4_ligand_supramolecular_engineering.pdf"
     plt.savefig(out_png, bbox_inches="tight", dpi=220)
     plt.savefig(out_pdf, bbox_inches="tight")
     plt.close()

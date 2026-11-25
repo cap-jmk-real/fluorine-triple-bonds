@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "pyscf_version": "2.15.1",
+    "numpy_version": "2.5.5",
+    "python_version": "3.12.3",
+    "platform": "Linux-6.12.113+-x86_64-with-glibc2.39",
+    "scf_max_cycle_default": 150,
+    "scf_level_shift_default": 0.1,
+    "optimize_xatol": 0.005,
+    "blas_info_excerpt": "Build Dependencies:\n  blas:\n    detection method: pkgconfig\n    found: true\n    include directory: /opt/_internal/cpython-3.12.16/lib/python3.12/site-packages/scipy_openblas64/include\n    lib directory: /opt/_internal/cpython-3.12.16/lib/python3.12/site-packages/scipy_openblas64/lib\n    name: scipy-openblas\n    openblas configuration: OpenBLAS 0.3.34.237.2  USE64BITINT DYNAMIC_ARCH NO_AFFINITY\n      SkylakeX MAX_THREADS=64\n    pc file directory: /project/.openblas\n    version: 0.3.34.237.2\n  lapack:\n    detection method: pkgconfig\n    found: true\n    include directory: /opt/_internal/cpython-3.12.16/lib/python3.12/site-packages/scipy_openblas64/include\n    lib directory: /opt/_internal/cpython-3.12.16/lib/python3.12/site-packages/scipy_openblas64/lib\n    name: scipy-openblas\n    openblas configuration: OpenBLAS 0.3.34.237.2  USE64BITINT DYNAMIC_ARCH NO_AFFINITY\n      SkylakeX MAX_THREADS=64\n    pc file directory: /project/.openblas\n    version: 0.3.34.237.2\nCompilers:\n  c:\n    commands: cc\n    linker: ld.bfd\n    name: gcc\n    version: 14.2.1\n  c++:\n    commands: c++\n    linker: ld.bfd\n    name: gcc\n    version: 14.2.1\n  cython:\n    commands: cython\n    linker: cython\n    name: cython\n    version: 3.3.1\nMachine Information:\n  build:\n    cpu: x86_64\n    endian: little\n    family: x86_64\n    system: linux\n  host:\n    cpu: x86_64\n    endian: little\n    family: x86_64\n    system: linux\nPython Information:\n  path: /tmp/build-env-zqq_wkgx/bin/python\n  version: '3.12'\nSIMD Extensions:\n  baseline:\n  - X86_V2\n  found:\n  - X86_V3\n  - X86_V4\n  - AVX512_ICL\n  - AVX512_SPR\n\n"
+  },
+  "of3plus_basis": {
+    "cc-pVDZ-DK": {
+      "r_e_ang": 1.0717,
+      "pbe0_bo": 2.6437,
+      "hf_bo": 2.584
+    },
+    "cc-pVTZ-DK": {
+      "r_e_ang": 1.0784,
+      "pbe0_bo": 2.7446,
+      "hf_bo": 2.6816
+    }
+  },
+  "of3plus_localization_at_vtz_re": {
+    "mayer_at_opt": {
+      "mayer_total": 2.7447,
+      "mayer_sigma": 0.8886,
+      "mayer_pi": 1.8495,
+      "q_F": 1.4564,
+      "q_X": 1.5436
+    },
+    "boys_mayer_equiv": -33.721,
+    "ibo_mayer_equiv": -3.0423
+  }
+}

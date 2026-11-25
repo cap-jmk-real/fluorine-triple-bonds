@@ -1,0 +1,24 @@
+=== EXACT REPRODUCTION OF PREPRINT TABLE 1 (Non-rel UHF / cc-pVTZ) ===
+Mult=7 R=1.8656 | Preprint HF=-1249.370195 | PySCF UHF=-1249.402381 (diff=-32.19 mHa) | <S^2>=12.003 | UMP2=-1250.156493
+Mult=5 R=1.7666 | Preprint HF=-1249.217022 | PySCF UHF=-1249.248013 (diff=-30.99 mHa) | <S^2>=6.019 | UMP2=-1250.086905
+Mult=3 R=1.8054 | Preprint HF=-1249.128642 | PySCF UHF=-1249.095220 (diff=+33.42 mHa) | <S^2>=2.699 | UMP2=-1249.966727
+Mult=1 R=1.8586 | Preprint HF=-1249.028371 | PySCF UHF=-1249.061765 (diff=-33.39 mHa) | <S^2>=0.000 | UMP2=-1249.935298
+  -> Singlet UHF stability: stable=False | Broken-sym UHF=-1249.169764 (dE=-2.94 eV) | <S^2>=1.978
+Traceback (most recent call last):
+  File "/workspace/scripts/reproduce_preprint_tables.py", line 82, in <module>
+    "pyscf_version": lib.__version__,
+                     ^^^^^^^^^^^^^^^
+AttributeError: module 'pyscf.lib' has no attribute '__version__'
+=== EXACT REPRODUCTION OF PREPRINT TABLE 1 (Non-rel UHF / cc-pVTZ) ===
+Mult=7 R=1.8656 | Preprint HF=-1249.370195 | PySCF UHF=-1249.402381 (diff=-32.19 mHa) | <S^2>=12.003 | UMP2=-1250.156493
+Mult=5 R=1.7666 | Preprint HF=-1249.217022 | PySCF UHF=-1249.248013 (diff=-30.99 mHa) | <S^2>=6.019 | UMP2=-1250.086905
+Mult=3 R=1.8054 | Preprint HF=-1249.128642 | PySCF UHF=-1249.095220 (diff=+33.42 mHa) | <S^2>=2.699 | UMP2=-1249.966731
+Mult=1 R=1.8586 | Preprint HF=-1249.028371 | PySCF UHF=-1249.061765 (diff=-33.39 mHa) | <S^2>=0.000 | UMP2=-1249.935298
+  -> Singlet UHF stability: stable=False | Broken-sym UHF=-1249.169764 (dE=-2.94 eV) | <S^2>=1.978
+
+Wrote /workspace/results/forensic_mnf_reproduction.json
+
+=== EXACT REPRODUCTION OF PREPRINT TABLE 2 (Non-rel ROHF/RHF + CAS(12,9) / cc-pVTZ) ===
+Mult=7 R=1.8683 | Preprint ROHF=-1249.368852 vs PySCF=-1248.953910 (+414.94 mHa) | Preprint CAS=-1249.392614 vs PySCF CAS(12,9)=-1249.031340 (+361.27 mHa)
+Mult=5 R=1.8838 | Preprint ROHF=-1249.214203 vs PySCF=-1249.239840 (-25.64 mHa) | Preprint CAS=-1249.358136 vs PySCF CAS(12,9)=-1249.278674 (+79.46 mHa)
+Mult=1 R=1.8586 | Preprint ROHF=-1249.028371 vs PySCF=-1249.061765 (-33.39 mHa) | Preprint CAS=-1249.129454 vs PySCF CAS(12,9)=-1249.187575 (-58.12 mHa)

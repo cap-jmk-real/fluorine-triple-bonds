@@ -4,4 +4,7 @@ __pycache__/
 *.h5
 *.molden
 *.log
+paper/*.aux
+paper/*.out
+paper/*.log
 .ipynb_checkpoints/

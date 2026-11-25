@@ -1,0 +1,23 @@
+=== EXTREME FLUORINE BOND-ORDER FRONTIER (X2C-PBE0 & X2C-HF / cc-pVTZ-DK) ===
+  [OF]3+ (10ve, 1S+)     | bound=True  | r_e=1.0784 A | PBE0 BO=2.745 (sig=0.889, pi=1.849) qF=+1.456 | HF BO=2.682 (pi=1.776)
+  [NF]2+ (10ve, 1S+)     | bound=True  | r_e=1.0859 A | PBE0 BO=2.427 (sig=0.918, pi=1.502) qF=+1.050 | HF BO=2.286 (pi=1.361)
+  [VF]4+ (3d0, 1S+)      | bound=True  | r_e=1.5652 A | PBE0 BO=2.486 (sig=0.837, pi=1.627) qF=+1.006 | HF BO=1.747 (pi=0.814)
+  [PF]2+ (10ve, 1S+)     | bound=True  | r_e=1.4534 A | PBE0 BO=1.877 (sig=0.801, pi=1.054) qF=+0.467 | HF BO=1.695 (pi=0.882)
+  [NbF]4+ (4d0, 1S+)     | bound=True  | r_e=1.6548 A | PBE0 BO=2.216 (sig=0.778, pi=1.405) qF=+0.743 | HF BO=2.022 (pi=1.205)
+Resuming with 0 cached candidates
+=== EXTREME FLUORINE BOND-ORDER FRONTIER (X2C-PBE0 & X2C-HF / cc-pVTZ-DK) ===
+  [OF]3+ (10ve, 1S+)     | bound=True  | r_e=1.0784 A | PBE0 BO=2.745 (sig=0.889, pi=1.849) qF=+1.456 | HF BO=2.682 (pi=1.776)
+  [NF]2+ (10ve, 1S+)     | bound=True  | r_e=1.0859 A | PBE0 BO=2.427 (sig=0.918, pi=1.502) qF=+1.050 | HF BO=2.286 (pi=1.361)
+  [VF]4+ (3d0, 1S+)      | bound=True  | r_e=1.5652 A | PBE0 BO=2.486 (sig=0.837, pi=1.627) qF=+1.006 | HF BO=1.747 (pi=0.814)
+  [NbF]4+ (4d0, 1S+)     | bound=True  | r_e=1.6548 A | PBE0 BO=2.216 (sig=0.778, pi=1.405) qF=+0.743 | HF BO=2.022 (pi=1.205)
+  [MoF]5+ (4d0, 1S+)     | bound=True  | r_e=1.6707 A | PBE0 BO=2.580 (sig=0.852, pi=1.692) qF=+1.047 | HF BO=2.421 (pi=1.495)
+  [TaF]4+ (5d0, 1S+)     | bound=True  | r_e=1.6759 A | PBE0 BO=2.154 (sig=0.760, pi=1.363) qF=+0.651 | HF BO=1.969 (pi=1.184)
+  [TiF]3+ (3d0, 1S+)     | bound=True  | r_e=1.5739 A | PBE0 BO=2.036 (sig=0.744, pi=1.275) qF=+0.679 | HF BO=1.799 (pi=1.027)
+  [ZrF]3+ (4d0, 1S+)     | bound=True  | r_e=1.7097 A | PBE0 BO=1.844 (sig=0.698, pi=1.110) qF=+0.513 | HF BO=1.623 (pi=0.926)
+Resuming with 7 cached candidates
+=== EXTREME FLUORINE BOND-ORDER FRONTIER (X2C-PBE0 & X2C-HF / cc-pVTZ-DK) ===
+  [CrF]5+ (3d0, 1S+)     | bound=True  | r_e=2.1510 A | PBE0 BO=0.767 (sig=0.489, pi=0.208) qF=+1.515 | HF BO=0.313 (pi=0.021)
+  [MoF]5+ (4d0, 1S+)     | bound=True  | r_e=1.6707 A | PBE0 BO=2.580 (sig=0.852, pi=1.692) qF=+1.047 | HF BO=2.421 (pi=1.495)
+  [WF]5+ (5d0, 1S+)      | bound=True  | r_e=1.6764 A | PBE0 BO=2.481 (sig=0.823, pi=1.627) qF=+0.909 | HF BO=2.342 (pi=1.477)
+
+DONE in 1039.1s -> /workspace/results/extreme_bo_results.json

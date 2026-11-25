@@ -361,8 +361,52 @@
         "q_F": -0.3,
         "q_X": 0.3
       }
+    },
+    {
+      "name": "[Cr(CO)5F]+ (C4v, +1)",
+      "charge": 1,
+      "spin": 0,
+      "bound": true,
+      "r_e_ang": 1.7674,
+      "e_pbe0_ha": -1716.819321,
+      "pbe0": {
+        "mayer_total": 1.164,
+        "mayer_sigma": 0.4969,
+        "mayer_pi": 0.6462,
+        "q_F": 0.0209,
+        "q_X": -0.9103
+      },
+      "hf": {
+        "mayer_total": 0.9155,
+        "mayer_sigma": 0.4384,
+        "mayer_pi": 0.4511,
+        "q_F": -0.1709,
+        "q_X": -0.9099
+      }
+    },
+    {
+      "name": "[AuF]2+ (d8, 1S)",
+      "charge": 2,
+      "spin": 0,
+      "bound": true,
+      "r_e_ang": 1.807,
+      "e_pbe0_ha": -19116.447143,
+      "pbe0": {
+        "mayer_total": 1.1766,
+        "mayer_sigma": 1.002,
+        "mayer_pi": 0.1579,
+        "q_F": 0.29,
+        "q_X": 1.71
+      },
+      "hf": {
+        "mayer_total": 1.0941,
+        "mayer_sigma": 0.9798,
+        "mayer_pi": 0.095,
+        "q_F": 0.2118,
+        "q_X": 1.7882
+      }
     }
   ],
-  "elapsed_s": 951.7,
-  "status": "partial"
+  "elapsed_s": 11907.7,
+  "status": "complete"
 }

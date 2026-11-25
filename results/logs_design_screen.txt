@@ -35,3 +35,17 @@ Note mol.spin = 2S = Nalpha - Nbeta, not 2S+1
 DONE in 951.7s -> /workspace/results/triple_bond_design_screen.json
 === RATIONAL DESIGN SCREENING FOR FLUORINE TRIPLE BONDS (X2C-PBE0 / cc-pVTZ-DK) ===
 Resuming with 16 cached candidates
+  [Cr(CO)5F]+ (C4v, +1)  | bound=True  | r_e=1.7674 A | PBE0 BO=1.164 (sig=0.497, pi=0.646) qF=+0.021 | HF BO=0.915 (pi=0.451)
+  [AuF]2+ (d8, 1S)       | bound=True  | r_e=1.8070 A | PBE0 BO=1.177 (sig=1.002, pi=0.158) qF=+0.290 | HF BO=1.094 (pi=0.095)
+
+=== TOP RANKED BY FLUORINE BOND ORDER (X2C-PBE0 / cc-pVTZ-DK) ===
+  NF2+ (1S+, dication)   | r_e=1.0859 A | BO=2.427 (sig=0.918, pi=1.502) | qF=+1.050
+  [F-C-F]2+ (linear, +2) | r_e=1.1461 A | BO=2.038 (sig=0.978, pi=1.053) | qF=+0.937
+  [TiF]3+ (d0, 1S+)      | r_e=1.5739 A | BO=2.036 (sig=0.744, pi=1.275) | qF=+0.679
+  CF+ (1S+, benchmark)   | r_e=1.1532 A | BO=1.985 (sig=0.884, pi=1.093) | qF=+0.744
+  [F-B-H]+ (linear, +1)  | r_e=1.2110 A | BO=1.750 (sig=0.811, pi=0.933) | qF=+0.738
+  [F-B-F]+ (linear, +1)  | r_e=1.2254 A | BO=1.655 (sig=0.830, pi=0.820) | qF=+0.707
+  [F-C=O]+ (linear, +1)  | r_e=1.1953 A | BO=1.598 (sig=0.946, pi=0.645) | qF=+0.656
+  [ScF]2+ (d0, 1S+)      | r_e=1.6715 A | BO=1.585 (sig=0.646, pi=0.915) | qF=+0.431
+
+DONE in 11907.7s -> /workspace/results/triple_bond_design_screen.json

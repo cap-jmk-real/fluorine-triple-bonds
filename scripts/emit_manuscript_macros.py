@@ -11,12 +11,20 @@ _scripts = Path(__file__).resolve().parent
 if str(_scripts) not in sys.path:
     sys.path.insert(0, str(_scripts))
 
-from repo_paths import GENERATED_DIR, RESULTS_DIR
+from repo_paths import GENERATED_DIR, PD_MATCHED_V3_DIR, RESULTS_DIR
+from pd_matched_v3_table import (
+    load_summary_rows,
+    manifest_from_summary,
+    pd_bond_at_minimum_from_curves,
+    pd_ecp_table_tex,
+)
 
 HA_TO_EV = 27.211386245988
 MANIFEST_JSON = RESULTS_DIR / "manuscript_number_manifest.json"
 TABLE4_MANIFEST_JSON = RESULTS_DIR / "table4_manifest.json"
 MACROS_TEX = GENERATED_DIR / "macros.tex"
+PD_TABLE_TEX = GENERATED_DIR / "pd_ecp_table.tex"
+PD_MANIFEST_JSON = RESULTS_DIR / "pd_matched_v3_manifest.json"
 
 # Fixed manuscript Table~\ref{tab:design} order: (macro slug, pool, name substring)
 TABLE4_ROWS = [
@@ -50,7 +58,16 @@ _DIGIT_WORDS = {
 
 
 def tex_macro_name(key: str) -> str:
-    """Control sequence names must not embed digits (e.g. \\DataDesignCrF5 breaks at `5`)."""
+    """Control sequence names must not embed bare digits (LaTeX macro names stop at digits)."""
+    if key.startswith("PdAudit_"):
+        body = key[len("PdAudit_") :]
+        out: list[str] = []
+        for c in body:
+            if c.isdigit():
+                out.append(_DIGIT_WORDS.get(c, c))
+            elif c.isalnum():
+                out.append(c)
+        return "Data" + "".join(out)
     parts = key.split("_")
     species = parts[0]
     field = "".join(parts[1:])
@@ -189,6 +206,94 @@ def manifest_from_results() -> dict:
                 }
 
     entries.update(table4_from_json())
+    entries.update(manifest_from_summary(load_summary_rows()))
+
+    bar = pd_bond_at_minimum_from_curves()
+    entries["PdF2plus4_AEccDK_mayer_sigma"] = {
+        "value": bar["PdF2plus4_AEccDK_mayer_sigma"],
+        "source": bar["source"],
+    }
+    entries["PdF2plus4_AEccDK_mayer_pi"] = {
+        "value": bar["PdF2plus4_AEccDK_mayer_pi"],
+        "source": bar["source"],
+    }
+
+    def _slug_id(text: str) -> str:
+        return (
+            text.replace("[", "")
+            .replace("]", "")
+            .replace(" ", "")
+            .replace("(", "")
+            .replace(")", "")
+            .replace("+", "p")
+            .replace("-", "")
+            .replace(",", "")
+        )
+
+    org_path = RESULTS_DIR / "organometallic_fluorine_screen.json"
+    if org_path.exists():
+        org = load_json("organometallic_fluorine_screen.json")
+        for c in org.get("candidates", []):
+            slug = _slug_id(c.get("id", "row"))
+            src = f"organometallic_fluorine_screen.json:{c.get('id')}"
+            entries[f"OrgScreen_{slug}_re"] = {"value": c["r_e_ang"], "source": src}
+            entries[f"OrgScreen_{slug}_BO"] = {"value": c["mayer_total"], "source": src}
+            entries[f"OrgScreen_{slug}_SigPi"] = {
+                "value": f"{c['mayer_sigma']:.2f}/{c['mayer_pi']:.2f}",
+                "source": src,
+            }
+            entries[f"OrgScreen_{slug}_qF"] = {"value": c["q_F"], "source": src}
+
+    cage_path = RESULTS_DIR / "superacid_and_cage_results.json"
+    if cage_path.exists():
+        cage = load_json("superacid_and_cage_results.json")
+        for c in cage.get("monocations", []):
+            slug = _slug_id(c.get("id", "row"))
+            src = f"superacid_and_cage_results.json:{c.get('id')}"
+            entries[f"CageScreen_{slug}_re"] = {"value": c["r_e_ang"], "source": src}
+            entries[f"CageScreen_{slug}_BO"] = {"value": c["mayer_total"], "source": src}
+        for block in cage.get("compression_scans", []):
+            for pt in block.get("points", []):
+                if abs(pt["R_ang"] - 1.62) < 1e-3:
+                    entries["CageScreen_FVH3plus_eq_BO"] = {
+                        "value": pt["mayer_total"],
+                        "source": "superacid_and_cage_results.json:compression/F-VH3 eq",
+                    }
+                if abs(pt["R_ang"] - 1.32) < 1e-3:
+                    entries["CageScreen_FVH3plus_R132_BO"] = {
+                        "value": pt["mayer_total"],
+                        "source": "superacid_and_cage_results.json:compression/F-VH3 R=1.32",
+                    }
+                    entries["CageScreen_FVH3plus_R132_dEeV"] = {
+                        "value": pt["delta_E_eV"],
+                        "source": "superacid_and_cage_results.json:compression/F-VH3 R=1.32",
+                    }
+
+    super_path = RESULTS_DIR / "superacid_complexes_results.json"
+    if super_path.exists():
+        sa = load_json("superacid_complexes_results.json")
+        for block in sa.get("complexes", []):
+            name = block["name"]
+            slug = (
+                name.replace("[", "")
+                .replace("]", "")
+                .replace(" ", "")
+                .replace("...", "")
+                .replace("+", "plus")
+                .replace("(", "")
+                .replace(")", "")
+                .replace(",", "")
+            )
+            pbe = block["pbe0"]
+            src = f"superacid_complexes_results.json:{name}"
+            entries[f"Superacid_{slug}_re"] = {"value": block["r_e"], "source": src}
+            entries[f"Superacid_{slug}_BO"] = {"value": pbe["mayer_total"], "source": src}
+            entries[f"Superacid_{slug}_SigPi"] = {
+                "value": f"{pbe['mayer_sigma']:.2f}/{pbe['mayer_pi']:.2f}",
+                "source": src,
+            }
+            entries[f"Superacid_{slug}_qF"] = {"value": pbe["q_F"], "source": src}
+
     return entries
 
 
@@ -198,6 +303,7 @@ def macros_tex(entries: dict) -> str:
         "% Regenerate: python scripts/emit_manuscript_macros.py",
         "",
     ]
+    seen: dict[str, str] = {}
     for key, meta in sorted(entries.items()):
         v = meta["value"]
         if key.endswith("_bound"):
@@ -224,6 +330,11 @@ def macros_tex(entries: dict) -> str:
         else:
             fmt = str(v)
         macro = tex_macro_name(key)
+        if macro in seen:
+            raise ValueError(
+                f"Duplicate LaTeX macro \\{macro} from keys {seen[macro]!r} and {key!r}"
+            )
+        seen[macro] = key
         lines.append(f"\\newcommand{{\\{macro}}}{{{fmt}}}")
     lines.append("")
     return "\n".join(lines)
@@ -232,9 +343,14 @@ def macros_tex(entries: dict) -> str:
 def main():
     entries = manifest_from_results()
     table4_only = {k: v for k, v in entries.items() if k.startswith("Design")}
+    pd_only = {k: v for k, v in entries.items() if k.startswith("PdAudit_")}
     GENERATED_DIR.mkdir(parents=True, exist_ok=True)
     with open(MANIFEST_JSON, "w") as f:
         json.dump(entries, f, indent=2, sort_keys=True)
+    with open(PD_MANIFEST_JSON, "w") as f:
+        json.dump(pd_only, f, indent=2, sort_keys=True)
+    with open(PD_TABLE_TEX, "w") as f:
+        f.write(pd_ecp_table_tex(load_summary_rows()))
     with open(TABLE4_MANIFEST_JSON, "w") as f:
         json.dump(table4_only, f, indent=2, sort_keys=True)
     with open(MACROS_TEX, "w") as f:
@@ -242,6 +358,8 @@ def main():
     print(f"Wrote {MANIFEST_JSON} ({len(entries)} numbers)")
     print(f"Wrote {TABLE4_MANIFEST_JSON} ({len(table4_only)} Table-4 fields)")
     print(f"Wrote {MACROS_TEX}")
+    print(f"Wrote {PD_TABLE_TEX}")
+    print(f"Wrote {PD_MANIFEST_JSON} ({len(pd_only)} Pd fields)")
 
 
 if __name__ == "__main__":

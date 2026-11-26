@@ -5,7 +5,8 @@ distances (0.85 A to 4.50 A, 26-32 closely spaced points per curve) to resolve:
   (a) Main-group triple bonds & Coulomb-explosion barriers: CF+, [NF]2+, [OF]3+
   (b) d^0 transition-metal triple bonds & 3d/4d/5d cliff: [TiF]3+, [MoF]5+, [WF]5+, [CrF]5+
   (c) Neutral MnF (7Sigma+) full dissociation curve (1.30 - 4.50 A)
-  (d) High-res AE-X2C vs. ECP binding reversal on [PdF]3+ (1Sigma+) (1.40 - 3.60 A)
+  (d) Panel (d) uses matched spin-pure NEVPT2 from data/pd_matched_v3 (not this script).
+  Legacy PdF3+ RKS DFT curves were removed from highres_pes_curves.json generation.
 
 Uses X2C-PBE0 / cc-pVTZ-DK (plus def2-TZVP ECP for PdF3+ comparison),
 saves full JSON curves, and generates fig3_highres_pes_barriers.{png,pdf}.
@@ -21,7 +22,7 @@ import numpy as np
 _scripts = Path(__file__).resolve().parent
 if str(_scripts) not in sys.path:
     sys.path.insert(0, str(_scripts))
-from repo_paths import FIGURES_DIR, RESULTS_DIR
+from repo_paths import FIGURES_DIR, PD_MATCHED_V3_DIR, RESULTS_DIR
 
 HA_TO_EV = 27.211386245988
 OUT_DIR = RESULTS_DIR
@@ -89,8 +90,6 @@ def main():
     r_mg = np.concatenate([np.linspace(0.85, 1.85, 21), np.linspace(2.00, 3.80, 10)])
     r_tm = np.concatenate([np.linspace(1.25, 2.35, 21), np.linspace(2.55, 4.20, 9)])
     r_mn = np.concatenate([np.linspace(1.35, 2.45, 20), np.linspace(2.65, 4.50, 9)])
-    r_pd = np.concatenate([np.linspace(1.40, 2.40, 18), np.linspace(2.60, 3.60, 6)])
-
     specs = [
         ("CF+",         "C",  1, 0, r_mg, "cc-pVTZ-DK", None, True),
         ("NF2+",        "N",  2, 0, r_mg, "cc-pVTZ-DK", None, True),
@@ -100,8 +99,6 @@ def main():
         ("WF5+",        "W",  5, 0, r_tm, "cc-pVTZ-DK", None, True),
         ("CrF5+",       "Cr", 5, 0, r_tm, "cc-pVTZ-DK", None, True),
         ("MnF_7Sigma+", "Mn", 0, 6, r_mn, "cc-pVTZ-DK", None, True),
-        ("PdF3+_AE",    "Pd", 3, 0, r_pd, "cc-pVTZ-DK", None, True),
-        ("PdF3+_ECP",   "Pd", 3, 0, r_pd, "def2-TZVP",  "def2-TZVP", False),
     ]
 
     for key, el, q, sp, grid, bas, ecp, x2c in specs:
@@ -113,6 +110,30 @@ def main():
     with open(os.path.join(OUT_DIR, "highres_pes_curves.json"), "w") as f:
         json.dump(data, f, indent=2)
     print(f"Scan DONE in {time.time()-t0:.1f}s -> highres_pes_curves.json", flush=True)
+
+
+def plot_pd_triplet_v3(ax, colors):
+    """Panel (d): triplet [PdF]3+ from spin-pure matched NEVPT2 envelope (v3 audit)."""
+    path = PD_MATCHED_V3_DIR / "corrected_curves.json"
+    with open(path) as f:
+        pd = json.load(f)
+    styles = [
+        ("AE_X2C_ccDK", "AE X2C cc-pVTZ-DK", colors[0], "-"),
+        ("ECP_def2", "ECP def2-TZVP", colors[1], "--"),
+    ]
+    for method, lbl, col, ls in styles:
+        env = pd["PdF3+_3"][method]["envelope"]
+        pts = sorted((p for p in env if p.get("e_nevpt2") is not None), key=lambda p: p["R"])
+        rs = np.array([p["R"] for p in pts])
+        es = np.array([p["e_nevpt2"] for p in pts])
+        e5 = es[-1]
+        ax.plot(rs, (es - e5) * HA_TO_EV, "o" + ls, color=col, lw=1.6, ms=3.5, label=lbl)
+    ax.axhline(0.0, color="gray", ls=":", lw=0.9)
+    ax.set_xlim(1.55, 3.25)
+    ax.set_xlabel(r"Internuclear distance $R$ ($\mathrm{\AA}$)")
+    ax.set_ylabel(r"$E(R) - E(5.00\,\mathrm{\AA})$ (eV)")
+    ax.set_title(r"(d) Triplet $[\mathrm{PdF}]^{3+}$: matched NEVPT2 (repulsive)")
+    ax.legend(frameon=False, fontsize=7.0, loc="lower left")
 
 
 def plot_curves():
@@ -182,21 +203,7 @@ def plot_curves():
     ax.set_title(r"(c) Neutral $\mathrm{MnF}$ ($X\,^7\Sigma^+$): Full Dissociation Curve")
     ax.legend(frameon=False, fontsize=7.5, loc="lower right")
 
-    # (d) High-Res AE-X2C vs. ECP Binding Reversal on [PdF]3+ (1Sigma+)
-    ax = axes[1, 1]
-    for idx, (k, lbl, ls) in enumerate([
-        ("PdF3+_AE",  "All-Electron X2C (cc-pVTZ-DK)", "-"),
-        ("PdF3+_ECP", "ECP (def2-TZVP)", "--"),
-    ]):
-        rs = np.array(data[k]["R"])
-        es = np.array(data[k]["E_ha"])
-        ax.plot(rs, (es - es[-1]) * HA_TO_EV, "o" + ls, color=COLORS[idx], lw=1.6, ms=3.5, label=lbl)
-    ax.axhline(0.0, color="gray", ls=":", lw=0.9)
-    ax.set_xlim(1.40, 3.60)
-    ax.set_xlabel(r"Internuclear distance $R$ ($\mathrm{\AA}$)")
-    ax.set_ylabel(r"$E(R) - E(3.60\,\mathrm{\AA})$ (eV)")
-    ax.set_title(r"(d) High-Res AE vs. ECP on $[\mathrm{PdF}]^{3+}$ ($^1\Sigma^+$)")
-    ax.legend(frameon=False, fontsize=7.5, loc="upper right")
+    plot_pd_triplet_v3(axes[1, 1], COLORS)
 
     plt.tight_layout()
     out_png = os.path.join(FIG_DIR, "fig3_highres_pes_barriers.png")

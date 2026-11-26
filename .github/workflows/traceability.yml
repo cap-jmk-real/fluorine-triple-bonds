@@ -26,5 +26,10 @@ jobs:
       - name: Regenerate LaTeX macros
         run: python scripts/emit_manuscript_macros.py
 
-      - name: Drift check
-        run: pytest tests/test_manuscript_traceability.py -q
+      - name: Install TeX (PDF build)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq texlive-latex-base texlive-latex-extra texlive-fonts-recommended
+
+      - name: Drift check and PDF build tests
+        run: |
+          pytest tests/ -q
+          bash scripts/build_paper_pdf.sh

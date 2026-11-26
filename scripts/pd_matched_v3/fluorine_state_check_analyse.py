@@ -7,11 +7,17 @@ sys.path.insert(0, sys.argv[1] + "/scripts")
 import run_ab_initio as R
 SC = Path(sys.argv[2]); PDM = Path(sys.argv[3]); OLD = Path(sys.argv[1]) / "results/ab_initio_results.json"
 HA_EV = 27.211386245988
-TARGET = {"PdF_2": 1, "PdF2+_2": 1, "PdF2+_4": 3, "PdF3+_1": 0, "PdF3+_3": 2}
+def target_spin_from_key(key: str) -> int:
+    """PySCF spin (2S) from species key suffix (2S+1), e.g. MnF_7 -> 6."""
+    return int(key.rsplit("_", 1)[-1]) - 1
 raw = {}
-for f in sorted(glob.glob(str(SC / "w*/state_check_raw.json"))):
+raw_files = sorted(glob.glob(str(SC / "w*/state_check_raw.json")))
+if (SC / "state_check_raw.json").exists():
+    raw_files.append(str(SC / "state_check_raw.json"))
+for f in raw_files:
     for k, arms in json.load(open(f))["scans"].items():
-        for a, v in arms.items(): raw.setdefault(k, {})[a] = v
+        for a, v in arms.items():
+            raw.setdefault(k, {})[a] = v
 pdm = json.load(open(PDM))["audit"]; old = json.load(open(OLD))["PdF_AE_vs_ECP"]
 OLDARM = {"AE_X2C_ccDK": "AE_X2C", "ECP_def2": "ECP_def2"}
 def ss_t(spin): s = spin / 2; return s * (s + 1)
@@ -23,7 +29,7 @@ def fit(pts):
     return R.fit_spectroscopic("Pd", [p["R"] for p in pts], [p["e_nevpt2"] for p in pts]) if len(pts) >= 3 else {"bound": False, "note": "<3 points"}
 out, rows, aud = {}, [], []
 for key, arms in raw.items():
-    spin = TARGET[key]
+    spin = target_spin_from_key(key)
     for arm, sw in arms.items():
         if not all(k in sw for k in ("fwd", "bwd")): continue
         fwd = {p["R"]: p for p in sw["fwd"]["points"]}; bwd = {p["R"]: p for p in sw["bwd"]["points"]}

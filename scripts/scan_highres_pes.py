@@ -5,7 +5,8 @@ distances (0.85 A to 4.50 A, 26-32 closely spaced points per curve) to resolve:
   (a) Main-group triple bonds & Coulomb-explosion barriers: CF+, [NF]2+, [OF]3+
   (b) d^0 transition-metal triple bonds & 3d/4d/5d cliff: [TiF]3+, [MoF]5+, [WF]5+, [CrF]5+
   (c) Neutral MnF (7Sigma+) full dissociation curve (1.30 - 4.50 A)
-  (d) Matched spin-pure NEVPT2 on triplet [PdF]3+ (repulsive; replaces legacy DFT singlet panel)
+  (d) Panel (d) uses matched spin-pure NEVPT2 from data/pd_matched_v3 (not this script).
+  Legacy PdF3+ RKS DFT curves were removed from highres_pes_curves.json generation.
 
 Uses X2C-PBE0 / cc-pVTZ-DK (plus def2-TZVP ECP for PdF3+ comparison),
 saves full JSON curves, and generates fig3_highres_pes_barriers.{png,pdf}.
@@ -89,8 +90,6 @@ def main():
     r_mg = np.concatenate([np.linspace(0.85, 1.85, 21), np.linspace(2.00, 3.80, 10)])
     r_tm = np.concatenate([np.linspace(1.25, 2.35, 21), np.linspace(2.55, 4.20, 9)])
     r_mn = np.concatenate([np.linspace(1.35, 2.45, 20), np.linspace(2.65, 4.50, 9)])
-    r_pd = np.concatenate([np.linspace(1.40, 2.40, 18), np.linspace(2.60, 3.60, 6)])
-
     specs = [
         ("CF+",         "C",  1, 0, r_mg, "cc-pVTZ-DK", None, True),
         ("NF2+",        "N",  2, 0, r_mg, "cc-pVTZ-DK", None, True),
@@ -100,8 +99,6 @@ def main():
         ("WF5+",        "W",  5, 0, r_tm, "cc-pVTZ-DK", None, True),
         ("CrF5+",       "Cr", 5, 0, r_tm, "cc-pVTZ-DK", None, True),
         ("MnF_7Sigma+", "Mn", 0, 6, r_mn, "cc-pVTZ-DK", None, True),
-        ("PdF3+_AE",    "Pd", 3, 0, r_pd, "cc-pVTZ-DK", None, True),
-        ("PdF3+_ECP",   "Pd", 3, 0, r_pd, "def2-TZVP",  "def2-TZVP", False),
     ]
 
     for key, el, q, sp, grid, bas, ecp, x2c in specs:

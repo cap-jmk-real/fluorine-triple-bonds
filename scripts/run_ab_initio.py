@@ -11,9 +11,17 @@ Saves all numerical results to results/ab_initio_results.json.
 """
 import json
 import os
+import sys
 import time
+from pathlib import Path
+
 import numpy as np
 from pyscf import gto, scf, mcscf, mrpt, lo
+
+_scripts = Path(__file__).resolve().parent
+if str(_scripts) not in sys.path:
+    sys.path.insert(0, str(_scripts))
+from repo_paths import RESULTS_DIR
 
 # Constants
 HA_TO_EV = 27.211386245988
@@ -31,8 +39,8 @@ ATOMIC_MASSES = {
     "Pd": 105.903480,
 }
 
-OUT_DIR = "/home/s4il0r/.gemini/antigravity/scratch/fluorine-triple-bonds/results"
-os.makedirs(OUT_DIR, exist_ok=True)
+OUT_DIR = str(RESULTS_DIR)
+RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 OUT_JSON = os.path.join(OUT_DIR, "ab_initio_results.json")
 
 

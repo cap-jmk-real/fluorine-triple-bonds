@@ -1,0 +1,29 @@
+{
+  "note": "stub from extreme_bo_results; run with --run on compute host",
+  "entries": [
+    {
+      "species": "[OF]3+ (10ve, 1S+)",
+      "r_e_ang": 1.0784,
+      "mayer_pbe0": 2.7446,
+      "status": "pending",
+      "method": null,
+      "ibo": null
+    },
+    {
+      "species": "[MoF]5+ (4d0, 1S+)",
+      "r_e_ang": 1.6707,
+      "mayer_pbe0": 2.5796,
+      "status": "pending",
+      "method": null,
+      "ibo": null
+    },
+    {
+      "species": "[WF]5+ (5d0, 1S+)",
+      "r_e_ang": 1.6764,
+      "mayer_pbe0": 2.4814,
+      "status": "pending",
+      "method": null,
+      "ibo": null
+    }
+  ]
+}

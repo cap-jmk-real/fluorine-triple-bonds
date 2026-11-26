@@ -31,7 +31,7 @@ Three concrete goals motivate this quantitative revision. First, I investigate t
 \section{Computational Methods}
 All calculations were executed in open-source PySCF 2.15.1 \cite{sun2020} (Python 3.12; software versions and BLAS metadata are archived with each results bundle in the repository). Legacy multireference scans in \texttt{run\_ab\_initio.py} use ROHF with \texttt{max\_cycle}$=250$, \texttt{level\_shift}$=0.25$, DIIS space $=12$, and Newton fallback on failed convergence; CASSCF macro-iterations use \texttt{conv\_tol}$=10^{-6}$ and up to $60$ cycles. The palladium matched audit (\texttt{scripts/pd\_matched\_v3/}) uses density-followed, stability-checked X2C ROHF; AVAS on Pd $4d$, Pd $5s$, and F $2p$ (threshold $0.2$; \texttt{minao} guess \texttt{ano} for all-electron Pd, \texttt{minao} for ECP Pd); CASCI with three roots, \texttt{fix\_spin\_}(shift $0.5$, target $\langle S^2\rangle$), and SC-NEVPT2 on each root; curves follow the lowest spin-pure root envelope on a $1.55$--$3.20\,$\AA\ grid plus $5.00\,$\AA\ with forward/backward sweeps. Pd bases are \texttt{cc-pVTZ-PP}+ECP28MDF, \texttt{cc-pVTZ-DK}, x2c-TZVPall, and \texttt{def2-TZVP} (ECP28) \cite{peterson2007,weigend2005,andrae1990,pollak2017}; F uses matching all-electron bases (no fluorine ECP exists; the PySCF \texttt{def2-TZVP} warning is harmless). Other multireference surfaces used exact two-component (X2C) scalar-relativistic ROHF, CASSCF, and strongly contracted SC-NEVPT2 \cite{angeli2001} with the all-electron relativistic \texttt{cc-pVTZ-DK} basis set \cite{balabanov2005}. Active spaces included metal valence $d,s$ and fluorine $2p$ orbitals: CAS(8,8) for $\mathrm{CF}^+$, CAS(10,8) for $\mathrm{NF}$, CAS(12,9) for $\mathrm{MnF}$, CAS(9,9) for $[\mathrm{MnF}]^{3+}$, CAS(15,9) for $\mathrm{NiF}/\mathrm{PdF}$, CAS(13,9) for $[\mathrm{NiF}]^{2+}/[\mathrm{PdF}]^{2+}$, and CAS(12,9) for $[\mathrm{NiF}]^{3+}/[\mathrm{PdF}]^{3+}$. The CAS(12,9) $\mathrm{MnF}$ manifold omits Mn $3s3p$ core--valence correlation and spin--orbit coupling, which are required for correct $^7\Sigma^+$ versus $^5\Sigma^+$ ordering \cite{koukounas2004}.
 
-Equilibrium bond lengths $r_e$ and harmonic frequencies $\omega_e$ were obtained from local polynomial fits (up to quartic, five-point windows) around each bound NEVPT2 minimum in \texttt{run\_ab\_initio.py}; the Pd audit uses the spin-pure envelope fits in \texttt{corrected\_summary.csv}. Covalent bond order was quantified from the CASSCF one-particle density matrix via the Mayer bond order \cite{mayer1983}, decomposed along the internuclear $z$-axis into $\sigma$ ($m_l = 0$) and $\pi$ ($|m_l| = 1$) components, alongside L\"owdin charges $q(\mathrm{F})$. Extreme triple-bond candidates were screened at X2C-PBE0 \cite{adamo1999} and cross-checked with X2C-HF using \texttt{cc-pVTZ-DK}.
+Equilibrium bond lengths $r_e$ and harmonic frequencies $\omega_e$ were obtained from local polynomial fits (up to quartic, five-point windows) around each bound NEVPT2 minimum in \texttt{run\_ab\_initio.py}. For the Pd matched audit, $r_e$ and $\omega_e$ in Table~\ref{tab:pd_ecp} come from lowest-root NEVPT2 envelope fits on the spin-pure fwd/bwd curves (\texttt{data/pd\_matched\_v3/corrected\_summary.csv}). Covalent bond order was quantified from the CASSCF one-particle density matrix via the Mayer bond order \cite{mayer1983}, decomposed along the internuclear $z$-axis into $\sigma$ ($m_l = 0$) and $\pi$ ($|m_l| = 1$) components, alongside L\"owdin charges $q(\mathrm{F})$. Extreme triple-bond candidates were screened at X2C-PBE0 \cite{adamo1999} and cross-checked with X2C-HF using \texttt{cc-pVTZ-DK}.
 
 \section{Results and Discussion}
 
@@ -59,7 +59,7 @@ $\mathrm{MnF}$ ($^5\Sigma^+$) & $6$ & 1.84$^*$ & -- & $-0.245$ & 0.594 & 0.32/0.
 $\mathrm{MnF}$ ($^3\Sigma^+$) & $2$ & 1.60$^*$ & -- & $+0.668$ & 0.642 & 0.31/0.31 & $-0.210$ \\
 $\mathrm{MnF}$ ($^1\Sigma^+$) & $0$ & 1.60$^*$ & -- & $+5.520$ & 0.893 & 0.44/0.38 & $-0.094$ \\
 \bottomrule
-\multicolumn{8}{@{}l}{\tiny $^*$Lowest-energy grid point on the $1.60$--$2.80\,$\AA\ scan (not a converged minimum). $\langle S^2\rangle$ values are nominal spin targets (legacy CASSCF without \texttt{fix\_spin\_}); not recomputed with the Pd spin-pure protocol.}
+\multicolumn{8}{@{}l}{\footnotesize $^*$Lowest-energy grid point on the $1.60$--$2.80\,$\AA\ scan (not a converged minimum). $\langle S^2\rangle$ values are nominal spin targets (legacy CASSCF without \texttt{fix\_spin\_}); not recomputed with the Pd spin-pure protocol.}
 \end{tabular}
 \end{table}
 
@@ -95,7 +95,7 @@ Mult & $R$ (\AA) & Preprint HF & PySCF UHF & $\langle S^2 \rangle$ & UMP2 \\
 1 & 1.8586 & $-1249.0284$ & $-1249.0618$ & $0.000^*$ & $-1249.9353$ \\
 1 (BS) & 1.8586 & -- & $\Dataforensicbsenergyha$ & $\DataforensicbsS$ & -- \\
 \bottomrule
-\multicolumn{6}{@{}l}{\tiny $^*$Unstable restricted saddle point; UHF internal-stability plus reoptimization lowers energy by $\DataforensicbsdeltaeV\,$eV (PySCF replay).}
+\multicolumn{6}{@{}l}{\footnotesize $^*$Unstable restricted saddle point; UHF internal-stability plus reoptimization lowers energy by $\DataforensicbsdeltaeV\,$eV (PySCF replay).}
 \end{tabular}
 \end{table}
 
@@ -120,19 +120,19 @@ $[\mathrm{NiF}]^{2+}$ ($^2\Sigma$) & $0.75$ & Yes & 1.934 & 0.269 & 0.23/0.04 & 
 $[\mathrm{NiF}]^{2+}$ ($^4\Sigma$) & $3.75$ & Yes & 1.901 & 0.291 & 0.24/0.05 & $+0.42$ \\
 $[\mathrm{NiF}]^{3+}$ ($^1$, $^3$, $^5$) & $0$, $2$, $6$ & No & $>2.20$ & $\le 0.022$ & 0.01/0.01 & $+1.17$ \\
 \bottomrule
-\multicolumn{7}{@{}l}{\tiny Unbound: $r_e$ not defined; BO/$q$ at reference scan points. $\langle S^2\rangle$ as nominal spin labels (legacy spin-uncontrolled CASSCF).}
+\multicolumn{7}{@{}l}{\footnotesize Unbound: $r_e$ not defined; BO/$q$ at reference scan points. $\langle S^2\rangle$ as nominal spin labels (legacy spin-uncontrolled CASSCF).}
 \end{tabular}
 \end{table}
 
 \subsection{Matched $2\times 2$ Audit of $4d$ Palladium Fluorides}
-Table~\ref{tab:pd_ecp} and Figure~\ref{fig:ecp} report the spin-pure matched audit on $\mathrm{PdF}$, $[\mathrm{PdF}]^{2+}$, and $[\mathrm{PdF}]^{3+}$ (data \texttt{data/pd\_matched\_v3/}; protocol \texttt{scripts/pd\_matched\_v3/}). All four core$\times$basis protocols agree: neutral $\mathrm{PdF}$ ($^2\Sigma^+$) is bound at $r_e = 1.90$--$1.92\,$\AA; quartet $[\mathrm{PdF}]^{2+}$ forms a shallow bound well at $2.11$--$2.15\,$\AA; the doublet surface has no single-state minimum ($0.09$--$0.20\,$eV above the quartet with multi-state crossings); singlet and triplet $[\mathrm{PdF}]^{3+}$ are repulsive on $1.55$--$3.20\,$\AA\ with $q(\mathrm{F}) \to +1$ beyond $\approx 2.2\,$\AA. Core treatment changes $r_e(\mathrm{PdF})$ by $\le 0.011\,$\AA\ and basis family by $\le 0.02\,$\AA\ ($[\mathrm{PdF}]^{2+}$ quartet spread $0.04\,$\AA). No $D_e$ is quoted for $[\mathrm{PdF}]^{3+}$ because $5\,$\AA\ asymptotes differ between AE ($\mathrm{Pd}^{3+}+\mathrm{F}$) and ECP ($\mathrm{Pd}^{2+}+\mathrm{F}^{+}$) models.
+Table~\ref{tab:pd_ecp} and Figure~\ref{fig:ecp} report the spin-pure matched audit on $\mathrm{PdF}$, $[\mathrm{PdF}]^{2+}$, and $[\mathrm{PdF}]^{3+}$ (data \texttt{data/pd\_matched\_v3/}; protocol \texttt{scripts/pd\_matched\_v3/}). All four core$\times$basis protocols agree: neutral $\mathrm{PdF}$ ($^2\Sigma^+$) is bound at $r_e = 1.90$--$1.92\,$\AA; quartet $[\mathrm{PdF}]^{2+}$ forms a shallow bound well at $2.10$--$2.15\,$\AA; the doublet surface has no single-state minimum ($0.09$--$0.20\,$eV above the quartet with multi-state crossings); singlet and triplet $[\mathrm{PdF}]^{3+}$ are repulsive on $1.55$--$3.20\,$\AA\ with $q(\mathrm{F}) \to +1$ beyond $\approx 2.2\,$\AA. Core treatment changes $r_e(\mathrm{PdF})$ by $\le 0.011\,$\AA\ and basis family by $\le 0.02\,$\AA\ ($[\mathrm{PdF}]^{2+}$ quartet spread $0.04\,$\AA). No $D_e$ is quoted for $[\mathrm{PdF}]^{3+}$ because $5\,$\AA\ asymptotes differ between AE ($\mathrm{Pd}^{3+}+\mathrm{F}$) and ECP ($\mathrm{Pd}^{2+}+\mathrm{F}^{+}$) models.
 
 \paragraph{Correction of earlier Pd results.}
-An earlier manuscript draft and \texttt{results/ab\_initio\_results.json} reported protocol-dependent binding reversals from spin-uncontrolled ROHF$\to$CASSCF scans: $\mathrm{PdF}$ AE $r_e = 2.025\,$\AA, $\omega_e = 1119\,\mathrm{cm}^{-1}$ (ill-defined active space including semicore states) versus ECP $1.917\,$\AA, $476\,\mathrm{cm}^{-1}$; $[\mathrm{PdF}]^{2+}$ ``AE bound'' at $1.838\,$\AA\ ($\pi$-BO $0.401$) versus ``ECP unbound''; $[\mathrm{PdF}]^{3+}$ ``ECP bound'' at $1.976\,$\AA; and identical singlet/triplet energies to $<10^{-6}\,E_h$. The matched audit retracts those assignments.
+An earlier manuscript draft and \texttt{results/ab\_initio\_results.json} reported protocol-dependent binding reversals from spin-uncontrolled ROHF$\to$CASSCF scans: $\mathrm{PdF}$ AE $r_e = 2.025\,$\AA, $\omega_e = 1119\,\mathrm{cm}^{-1}$ (ill-defined active space including semicore states) versus ECP $1.917\,$\AA, $476\,\mathrm{cm}^{-1}$; $[\mathrm{PdF}]^{2+}$ ``AE bound'' at $1.838\,$\AA\ ($\pi$-BO $0.401$) versus ``ECP unbound''; $[\mathrm{PdF}]^{3+}$ ``ECP bound'' at $1.976\,$\AA; and identical singlet/triplet energies to $<10^{-6}\,E_h$. Five of ten legacy Pd curves did not reproduce on replay (ROHF root swaps and mixed states). The qualitative AE ``unbound'' call for $[\mathrm{PdF}]^{3+}$ was correct in outcome but obtained on a spin-mixed state. Singlet $[\mathrm{PdF}]^{3+}$ at $1.8$--$2.5\,$\AA\ in the spin-penalty rerun (\texttt{data/pd\_matched\_v3/v3-shift2/}) shifts by $-4.3$ to $+1.0\,$eV versus the primary v3 envelope (path-dependent ROHF references); the species remains repulsive overall, but that window is not quantitative. The matched audit retracts the binding-reversal narrative and the legacy numeric constants above.
 
 \begin{table}[t]
 \centering
-\caption{Spin-pure matched AVAS-CASCI/SC-NEVPT2 audit on palladium monofluorides (lowest spin-pure root; macro-generated from \texttt{corrected\_summary.csv}).}
+\caption{Spin-pure matched AVAS-CASCI/SC-NEVPT2 audit on palladium monofluorides (lowest-root NEVPT2 envelope fit; macro-generated from \texttt{corrected\_summary.csv}).}
 \label{tab:pd_ecp}
 \scriptsize
 \setlength{\tabcolsep}{1.6pt}
@@ -185,7 +185,7 @@ To evaluate condensed-phase stabilization without Coulomb explosion, I screened 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{../figures/fig3_highres_pes_barriers.pdf}
-\caption{High-resolution PES scans ($0.85$--$4.50\,$\AA, X2C-PBE0). (a) Main-group barriers vs.\ bound $\mathrm{CF}^+$. (b) Deep $d^0$ wells ($[\mathrm{TiF}]^{3+}$, $[\mathrm{MoF}]^{5+}$, $[\mathrm{WF}]^{5+}$) vs.\ shallow $[\mathrm{CrF}]^{5+}$ (see Table~\ref{tab:design} for regenerated $r_e$). (c) Neutral $\mathrm{MnF}$ ($^7\Sigma^+$, $D_e = 4.33\,$eV). (d) Triplet $[\mathrm{PdF}]^{3+}$ from matched spin-pure NEVPT2 (repulsive; not legacy RKS singlet DFT).}
+\caption{(a)--(c) High-resolution X2C-PBE0 scans ($0.85$--$4.50\,$\AA): main-group barriers vs.\ bound $\mathrm{CF}^+$, deep $d^0$ wells vs.\ shallow $[\mathrm{CrF}]^{5+}$, and neutral $\mathrm{MnF}$ ($^7\Sigma^+$, $D_e = 4.33\,$eV). (d) Triplet $[\mathrm{PdF}]^{3+}$ from matched spin-pure NEVPT2 on $1.55$--$5.00\,$\AA\ (data \texttt{pd\_matched\_v3}; repulsive; not the X2C-PBE0 curves in panels a--c).}
 \label{fig:pes}
 \end{figure}
 
@@ -209,7 +209,7 @@ $[\mathrm{TiF}_3]^+\!\cdots\![\mathrm{BF}_4]^-$ ($0$) & \DataSuperacidTiFplusBFn
 $\mathrm{F\text{-}MoH_5}$ ($0$, neutral)$^\ddagger$ & 1.8267 & 1.074 & 0.25/\textbf{0.80} & $-0.13$ \\
 $[\mathrm{OsO}_3\mathrm{F}]^+$ ($+1$, $C_{3v}$) & \DataSuperacidOsOFplusCvdOsVIIIre & \DataSuperacidOsOFplusCvdOsVIIIBO & \DataSuperacidOsOFplusCvdOsVIIISigPi & \DataSuperacidOsOFplusCvdOsVIIIqF \\
 \bottomrule
-\multicolumn{5}{@{}l}{\tiny $^\ddagger$From \texttt{scripts/screen\_organometallic\_fluorine.py} and \texttt{test\_superacid\_and\_cage.py}; no archived JSON in the repository.}
+\multicolumn{5}{@{}l}{\footnotesize $^\ddagger$From \texttt{scripts/screen\_organometallic\_fluorine.py} and \texttt{test\_superacid\_and\_cage.py}; no archived JSON in the repository.}
 \end{tabular}
 \end{table}
 
@@ -240,12 +240,21 @@ Scalar-relativistic all-electron benchmarks on $\mathrm{CF}^+$, $\mathrm{NF}$, a
 \section*{Data and Code Availability}
 Source code, JSON results, traceability manifests, and auto-generated table macros are versioned at \url{https://github.com/cap-jmk-real/fluorine-triple-bonds} (branch \texttt{cursor/publication-evidence-trace-d0c6}, commit pinned at submission). The palladium matched audit bundle is \texttt{data/pd\_matched\_v3/} (\texttt{corrected\_summary.csv}, \texttt{corrected\_curves.json}, \texttt{legacy\_state\_audit.csv}) with drivers \texttt{scripts/pd\_matched\_v3/fluorine\_state\_check.py} and \texttt{fluorine\_state\_check\_analyse.py}. Run \texttt{python scripts/emit\_manuscript\_macros.py} after updating results to refresh \texttt{paper/generated/macros.tex} and \texttt{paper/generated/pd\_ecp\_table.tex}.
 
+\section*{Funding}
+% TODO (author): Add funding agency, grant numbers, and institutional support if applicable. None are recorded in this repository.
+
+\section*{Conflict of Interest}
+The author declares no known conflicts of interest related to this study. No commercial funding or competing interests are documented in the repository metadata.
+
+\section*{Author Contributions (CRediT)}
+Julian~M.~Kleber: conceptualization, software, formal analysis, investigation, writing—original draft, visualization, project administration (sole author; see repository commit history and PySCF result bundles for calculation provenance).
+
 \section*{AI-Tool Disclosure}
-Large language model and coding assistant tools (Antigravity) assisted with PySCF workflow scripting, citation verification, plotting, and manuscript editing. All ab initio calculations and conclusions were verified directly from the executed PySCF outputs.
+Large language model and coding assistant tools assisted with PySCF workflow scripting, citation verification, plotting, and manuscript editing. All ab initio energies, bond orders, and structure conclusions cited in tables and figures were taken from executed PySCF outputs archived in the repository; AI tools did not replace those numerical results.
 
 \begin{thebibliography}{24}
 \bibitem{harbison2002} G. S. Harbison, ``The electric dipole polarity of the ground and low-lying metastable excited states of NF,'' \textit{J. Am. Chem. Soc.} \textbf{124}, 366--367 (2002). \url{https://doi.org/10.1021/ja0159261}
-\bibitem{schroder1999} D. Schr\"oder, G. Diefenbach, H. Klap\"otke, and H. Schwarz, ``$\mathrm{UF}^{3+}$---A thermochemically stable diatomic trication with a covalent bond,'' \textit{Angew. Chem. Int. Ed.} \textbf{38}, 137--140 (1999). \url{https://doi.org/10.1002/(SICI)1521-3773(19990115)38:1/2<137::AID-ANIE137>3.0.CO;2-M}
+\bibitem{schroder1999} D. Schr\"oder, M. Diefenbach, T. M. Klap\"otke, and H. Schwarz, ``$\mathrm{UF}^{3+}$---A thermochemically stable diatomic trication with a covalent bond,'' \textit{Angew. Chem. Int. Ed.} \textbf{38}, 137--140 (1999). \url{https://doi.org/10.1002/(SICI)1521-3773(19990115)38:1/2<137::AID-ANIE137>3.0.CO;2-M}
 \bibitem{huber1979} K. P. Huber and G. Herzberg, \textit{Constants of Diatomic Molecules} (Van Nostrand Reinhold, New York, 1979). \url{https://doi.org/10.1007/978-1-4757-0961-2_2}; NIST Chemistry WebBook, $\mathrm{N}_2$ ($X\,^1\Sigma_g^+$), $r_e=1.0977$\,\AA\ (\url{https://webbook.nist.gov/})
 \bibitem{kleber2025} J. M. Kleber, ``Can fluorine form triple bonds?,'' ChemRxiv Preprint v3, 2025. \url{https://doi.org/10.26434/chemrxiv-2022-xlsjn-v3}
 \bibitem{frenking2000} G. Frenking and N. Fr\"ohlich, ``The nature of the bonding in transition-metal compounds,'' \textit{Chem. Rev.} \textbf{100}, 717--774 (2000). \url{https://doi.org/10.1021/cr980401l}
@@ -265,9 +274,9 @@ Large language model and coding assistant tools (Antigravity) assisted with PySC
 \bibitem{krossing2004} I. Krossing and I. Raabe, ``Noncoordinating anions: Fact or fiction? A survey of likely candidates,'' \textit{Angew. Chem. Int. Ed.} \textbf{43}, 2066--2090 (2004). \url{https://doi.org/10.1002/anie.200300620}
 \bibitem{court1973} T. L. Court and M. F. A. Dove, ``Fluorine compounds of nickel(III),'' \textit{J. Chem. Soc., Dalton Trans.}, 1995--1997 (1973). \url{https://doi.org/10.1039/DT9730001995}
 \bibitem{greb2018} L. Greb, ``Lewis superacids: Classifications, candidates, and applications,'' \textit{Chem. Eur. J.} \textbf{24}, 17881--17896 (2018). \url{https://doi.org/10.1002/chem.201802698}
-\bibitem{peterson2007} K. A. Peterson, D. Figgen, H. Stoll, M. Dolg, and P. E. M. Sievers, ``Systematically convergent correlation consistent basis sets for the 4d elements Y--Pd,'' \textit{J. Chem. Phys.} \textbf{126}, 124101 (2007). \url{https://doi.org/10.1063/1.2647019}
-\bibitem{andrae1990} D. Andr\"ae, H. Stoll, M. Dolg, P. E. M. Sievers, and H. Preuss, ``Energy-adjusted ab initio pseudopotentials for the second and third row transition elements,'' \textit{Theor. Chim. Acta} \textbf{77}, 123--141 (1990). \url{https://doi.org/10.1007/BF01114537}
-\bibitem{pollak2017} E. Pollak and F. Weigend, ``Reduced basis set def-SVPD all-electron pseudopotentials for the elements from gallium to krypton,'' \textit{J. Chem. Theory Comput.} \textbf{13}, 3696--3705 (2017). \url{https://doi.org/10.1021/acs.jctc.7b00593}
+\bibitem{peterson2007} K.~A.~Peterson, D.~Figgen, M.~Dolg, and H.~Stoll, ``Energy-consistent relativistic pseudopotentials and correlation consistent basis sets for the 4d elements Y--Pd,'' \textit{J. Chem. Phys.} \textbf{126}, 124101 (2007). \url{https://doi.org/10.1063/1.2647019}
+\bibitem{andrae1990} D.~Andr\"ae, U.~H\"außermann, M.~Dolg, H.~Stoll, and H.~Preuß, ``Energy-adjusted ab initio pseudopotentials for the second and third row transition elements,'' \textit{Theor. Chim. Acta} \textbf{77}, 123--141 (1990). \url{https://doi.org/10.1007/BF01114537}
+\bibitem{pollak2017} P.~Pollak and F.~Weigend, ``Segmented Contracted Error-Consistent Basis Sets of Double- and Triple-zeta Valence Quality for One- and Two-Component Relativistic All-Electron Calculations,'' \textit{J. Chem. Theory Comput.} \textbf{13}, 3696--3705 (2017). \url{https://doi.org/10.1021/acs.jctc.7b00593}
 \end{thebibliography}
 
 \end{document}

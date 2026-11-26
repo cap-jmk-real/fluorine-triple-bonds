@@ -94,14 +94,20 @@ def bound_row_tex(species_key: str, spin_label: str, row: dict) -> str:
     )
 
 
+MACRO_TABLE_SPECIES = frozenset({"PdF_2", "PdF2+_4"})
+
+
 def manifest_from_summary(rows: list[dict]) -> dict:
     entries = {}
     for row in rows:
         sp = row["species"]
+        if sp not in MACRO_TABLE_SPECIES:
+            continue
         meth = row["method"]
         spin = row["2S+1"]
         slug = _macro_slug(meth)
-        base = f"Pd_{sp}_S{spin}_{slug}"
+        sp_key = sp.replace("+", "p")
+        base = f"PdAudit_{sp_key}_M{spin}_{slug}"
         src = f"data/pd_matched_v3/corrected_summary.csv:{sp},{meth},2S+1={spin}"
         for field, col, nd in (
             ("re", "r_e_NEVPT2_lowest_root_A", 4),
@@ -180,7 +186,7 @@ def pd_ecp_table_tex(rows: list[dict]) -> str:
 
     lines += [
         r"\bottomrule",
-        r"\multicolumn{7}{@{}l}{\tiny $^a$Separated-ion asymptotes differ between AE ($\mathrm{Pd}^{3+}+\mathrm{F}$) and ECP ($\mathrm{Pd}^{2+}+\mathrm{F}^{+}$) protocols; metastable ``bound'' fits in the legacy CSV are artefacts.}",
+        r"\multicolumn{7}{@{}l}{\footnotesize $^a$Separated-ion asymptotes differ between AE ($\mathrm{Pd}^{3+}+\mathrm{F}$) and ECP ($\mathrm{Pd}^{2+}+\mathrm{F}^{+}$) protocols; metastable ``bound'' rows with $\omega_e \gg 10^3\,\mathrm{cm}^{-1}$ in \texttt{data/pd\_matched\_v3/corrected\_summary.csv} are envelope-fit artefacts.}",
         r"\end{tabular}",
         "",
     ]

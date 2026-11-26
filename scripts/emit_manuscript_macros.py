@@ -11,12 +11,20 @@ _scripts = Path(__file__).resolve().parent
 if str(_scripts) not in sys.path:
     sys.path.insert(0, str(_scripts))
 
-from repo_paths import GENERATED_DIR, RESULTS_DIR
+from repo_paths import GENERATED_DIR, PD_MATCHED_V3_DIR, RESULTS_DIR
+from pd_matched_v3_table import (
+    load_summary_rows,
+    manifest_from_summary,
+    pd_bond_at_minimum_from_curves,
+    pd_ecp_table_tex,
+)
 
 HA_TO_EV = 27.211386245988
 MANIFEST_JSON = RESULTS_DIR / "manuscript_number_manifest.json"
 TABLE4_MANIFEST_JSON = RESULTS_DIR / "table4_manifest.json"
 MACROS_TEX = GENERATED_DIR / "macros.tex"
+PD_TABLE_TEX = GENERATED_DIR / "pd_ecp_table.tex"
+PD_MANIFEST_JSON = RESULTS_DIR / "pd_matched_v3_manifest.json"
 
 # Fixed manuscript Table~\ref{tab:design} order: (macro slug, pool, name substring)
 TABLE4_ROWS = [
@@ -189,6 +197,43 @@ def manifest_from_results() -> dict:
                 }
 
     entries.update(table4_from_json())
+    entries.update(manifest_from_summary(load_summary_rows()))
+
+    bar = pd_bond_at_minimum_from_curves()
+    entries["PdF2plus4_AEccDK_mayer_sigma"] = {
+        "value": bar["PdF2plus4_AEccDK_mayer_sigma"],
+        "source": bar["source"],
+    }
+    entries["PdF2plus4_AEccDK_mayer_pi"] = {
+        "value": bar["PdF2plus4_AEccDK_mayer_pi"],
+        "source": bar["source"],
+    }
+
+    super_path = RESULTS_DIR / "superacid_complexes_results.json"
+    if super_path.exists():
+        sa = load_json("superacid_complexes_results.json")
+        for block in sa.get("complexes", []):
+            name = block["name"]
+            slug = (
+                name.replace("[", "")
+                .replace("]", "")
+                .replace(" ", "")
+                .replace("...", "")
+                .replace("+", "plus")
+                .replace("(", "")
+                .replace(")", "")
+                .replace(",", "")
+            )
+            pbe = block["pbe0"]
+            src = f"superacid_complexes_results.json:{name}"
+            entries[f"Superacid_{slug}_re"] = {"value": block["r_e"], "source": src}
+            entries[f"Superacid_{slug}_BO"] = {"value": pbe["mayer_total"], "source": src}
+            entries[f"Superacid_{slug}_SigPi"] = {
+                "value": f"{pbe['mayer_sigma']:.2f}/{pbe['mayer_pi']:.2f}",
+                "source": src,
+            }
+            entries[f"Superacid_{slug}_qF"] = {"value": pbe["q_F"], "source": src}
+
     return entries
 
 
@@ -232,9 +277,14 @@ def macros_tex(entries: dict) -> str:
 def main():
     entries = manifest_from_results()
     table4_only = {k: v for k, v in entries.items() if k.startswith("Design")}
+    pd_only = {k: v for k, v in entries.items() if k.startswith("Pd_")}
     GENERATED_DIR.mkdir(parents=True, exist_ok=True)
     with open(MANIFEST_JSON, "w") as f:
         json.dump(entries, f, indent=2, sort_keys=True)
+    with open(PD_MANIFEST_JSON, "w") as f:
+        json.dump(pd_only, f, indent=2, sort_keys=True)
+    with open(PD_TABLE_TEX, "w") as f:
+        f.write(pd_ecp_table_tex(load_summary_rows()))
     with open(TABLE4_MANIFEST_JSON, "w") as f:
         json.dump(table4_only, f, indent=2, sort_keys=True)
     with open(MACROS_TEX, "w") as f:
@@ -242,6 +292,8 @@ def main():
     print(f"Wrote {MANIFEST_JSON} ({len(entries)} numbers)")
     print(f"Wrote {TABLE4_MANIFEST_JSON} ({len(table4_only)} Table-4 fields)")
     print(f"Wrote {MACROS_TEX}")
+    print(f"Wrote {PD_TABLE_TEX}")
+    print(f"Wrote {PD_MANIFEST_JSON} ({len(pd_only)} Pd fields)")
 
 
 if __name__ == "__main__":

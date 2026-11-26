@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 from unittest.mock import patch
 
+import numpy as np
 import pytest
 
 REPO = Path(__file__).resolve().parent.parent
@@ -130,6 +131,49 @@ def test_check_memory_exits_after_max_wait():
         pytest.raises(SystemExit),
     ):
         tc.check_memory(wait_seconds=100, max_wait_hours=1.0)
+
+
+def test_checkpoint_record_json_roundtrip(tmp_path):
+    sys.path.insert(0, str(REPO / "scripts" / "excited_states"))
+    import td_scan as scan
+
+    best = {
+        "e_tot_ha": np.float64(-1.234),
+        "guess": "minao",
+        "s2_ref": np.float32(0.75),
+    }
+    guesses = [{"guess": "atom", "e_tot_ha": -1.2}, best]
+    winning = dict(best)
+    winning["guesses"] = guesses
+    winning["winning_guess"] = winning.get("guess")
+    record = {
+        "species": "PdF_2",
+        "reference": winning,
+        "td": {"roots": [{"e_ev": np.float64(2.5)}]},
+    }
+    payload = scan._jsonable(record)
+    text = json.dumps(payload)
+    restored = json.loads(text)
+    assert restored["species"] == "PdF_2"
+    assert restored["reference"]["e_tot_ha"] == pytest.approx(-1.234)
+    assert restored["reference"]["s2_ref"] == pytest.approx(0.75)
+    assert restored["reference"]["winning_guess"] == "minao"
+    assert restored["reference"]["guesses"][1]["guess"] == "minao"
+    assert restored["td"]["roots"][0]["e_ev"] == pytest.approx(2.5)
+
+    legacy = {"guess": "minao", "e_tot_ha": np.float64(-1.0)}
+    legacy["guesses"] = [legacy]
+    with pytest.raises(ValueError, match="Circular reference"):
+        json.dumps(legacy)
+    assert json.loads(json.dumps(scan._jsonable(legacy)))["guess"] == "minao"
+
+    ck_path = tmp_path / "td_raw.json"
+    scan.save_store(
+        ck_path,
+        {"points": {"PdF_2|UKS_TDA_PBE0|1.80": record}, "meta": {}, "spin_flip": {}},
+    )
+    loaded = json.loads(ck_path.read_text())
+    assert loaded["points"]["PdF_2|UKS_TDA_PBE0|1.80"]["reference"]["winning_guess"] == "minao"
 
 
 def test_help_without_importing_pyscf():

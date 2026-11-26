@@ -216,10 +216,11 @@ def scf_reference_with_guesses(
         except Exception:
             continue
 
-    best["guesses"] = guesses
-    best["guess_spread_lowest_exc_ev"] = stats_lowest(lowest_exc)
-    best["winning_guess"] = best.get("guess")
-    return mf, best
+    winning = dict(best)
+    winning["guesses"] = guesses
+    winning["guess_spread_lowest_exc_ev"] = stats_lowest(lowest_exc)
+    winning["winning_guess"] = winning.get("guess")
+    return mf, winning
 
 
 def run_td_on_mf(mf, driver: str, xc: str | None, algorithm: str, nroots: int) -> dict[str, Any]:
@@ -375,6 +376,41 @@ def try_spin_flip(mf, job: dict[str, Any], r: float, nroots: int) -> dict[str, A
     return results
 
 
+def _jsonable(obj: Any, _seen: set[int] | None = None) -> Any:
+    """Convert numpy types and break graph cycles before json.dumps."""
+    if _seen is None:
+        _seen = set()
+
+    if obj is None or isinstance(obj, (bool, int, float, str)):
+        return obj
+
+    if isinstance(obj, np.generic):
+        if isinstance(obj, np.bool_):
+            return bool(obj)
+        if isinstance(obj, np.floating):
+            return float(obj)
+        if isinstance(obj, np.integer):
+            return int(obj)
+        return obj.item()
+
+    if isinstance(obj, np.ndarray):
+        return [_jsonable(x, _seen) for x in obj.tolist()]
+
+    oid = id(obj)
+    if oid in _seen:
+        return None
+
+    if isinstance(obj, dict):
+        _seen.add(oid)
+        return {k: _jsonable(v, _seen) for k, v in obj.items()}
+
+    if isinstance(obj, (list, tuple)):
+        _seen.add(oid)
+        return [_jsonable(x, _seen) for x in obj]
+
+    return str(obj)
+
+
 def checkpoint_key(species: str, method: str, r: float) -> str:
     return f"{species}|{method}|{r:.2f}"
 
@@ -400,7 +436,7 @@ def save_store(path: Path, data: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(".tmp")
     serial = {k: v for k, v in data.items() if k != "_state"}
-    tmp.write_text(json.dumps(serial, indent=1, default=str) + "\n")
+    tmp.write_text(json.dumps(_jsonable(serial), indent=1) + "\n")
     tmp.replace(path)
 
 

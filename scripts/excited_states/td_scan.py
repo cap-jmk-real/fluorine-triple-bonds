@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import os
 import sys
 import time
@@ -23,15 +24,13 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
-from pyscf import __version__ as PV
-from pyscf import scf, tdscf
+
 _SCRIPT_DIR = Path(__file__).resolve().parent
 if str(_SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(_SCRIPT_DIR))
 
 from td_common import (
     ARMS,
-    HARTREE2EV,
     SMOKE_BASIS,
     SPIN_FLIP_JOBS,
     TD_METHODS,
@@ -52,6 +51,23 @@ from td_common import (
 REPO = Path(__file__).resolve().parents[2]
 PD_MATCHED = Path(__file__).resolve().parents[1] / "pd_matched_v3"
 
+_PV: str | None = None
+_scf_mod = None
+_tdscf_mod = None
+
+
+def _pyscf():
+    global _PV, _scf_mod, _tdscf_mod
+    if _scf_mod is None:
+        from pyscf import __version__ as pv
+        from pyscf import scf as scf_mod
+        from pyscf import tdscf as tdscf_mod
+
+        _PV = pv
+        _scf_mod = scf_mod
+        _tdscf_mod = tdscf_mod
+    return _PV, _scf_mod, _tdscf_mod
+
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -64,6 +80,18 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument("--grid", default=None, help="start:stop:step or comma list (Å)")
     p.add_argument("--nroots", type=int, default=20)
     p.add_argument("--skip-spin-flip", action="store_true")
+    p.add_argument(
+        "--mem-wait-seconds",
+        type=float,
+        default=300,
+        help="Seconds to sleep between MemAvailable rechecks when below TD_MIN_MEM_GIB",
+    )
+    p.add_argument(
+        "--mem-wait-max-hours",
+        type=float,
+        default=24,
+        help="Stop the scan if memory stays low longer than this (hours)",
+    )
     return p.parse_args(argv)
 
 
@@ -75,6 +103,7 @@ def _import_common():
 
 
 def build_mf(mol, driver: str, xc: str | None, x2c: bool, *, guess: str, dm0=None):
+    _, scf, _ = _pyscf()
     if driver == "UKS":
         mf = scf.UKS(mol)
         mf.xc = xc or "pbe0"
@@ -93,7 +122,7 @@ def build_mf(mol, driver: str, xc: str | None, x2c: bool, *, guess: str, dm0=Non
     else:
         mf.kernel()
     if not mf.converged:
-        mf = scf.newton(mf)
+        mf = scf.newton(mf)  # noqa: same scf module from _pyscf()
         mf.max_memory = max_memory_mb()
         mf.kernel(mf.make_rdm1())
     return mf
@@ -176,10 +205,13 @@ def scf_reference_with_guesses(
         if not gmeta.get("internal_stable"):
             continue
         try:
+            _, _, tdscf = _pyscf()
             td = tdscf.TDA(gmf)
             td.nstates = 1
             td.verbose = 0
             td.kernel()
+            from td_common import HARTREE2EV
+
             lowest_exc.append(float(td.e[0]) * HARTREE2EV)
         except Exception:
             continue
@@ -191,6 +223,7 @@ def scf_reference_with_guesses(
 
 
 def run_td_on_mf(mf, driver: str, xc: str | None, algorithm: str, nroots: int) -> dict[str, Any]:
+    _, _, tdscf = _pyscf()
     if driver == "UKS" and xc and getattr(mf, "xc", None) != xc:
         mf.xc = xc
     td_cls = tdscf.TDA if algorithm == "TDA" else tdscf.TDDFT
@@ -206,6 +239,8 @@ def run_td_on_mf(mf, driver: str, xc: str | None, algorithm: str, nroots: int) -
         return {"error": repr(exc)[:400], "seconds": round(time.time() - t0, 2)}
     if hasattr(td, "converged"):
         converged = bool(np.all(td.converged)) if isinstance(td.converged, (list, tuple, np.ndarray)) else bool(td.converged)
+
+    from td_common import HARTREE2EV
 
     energies_ha = np.asarray(td.e, dtype=float)
     energies_ev = energies_ha * HARTREE2EV
@@ -327,6 +362,8 @@ def try_spin_flip(mf, job: dict[str, Any], r: float, nroots: int) -> dict[str, A
             if mode == "noncollinear" and hasattr(sft, "collinear"):
                 sft.collinear = False
             sft.kernel()
+            from td_common import HARTREE2EV
+
             e_ev = np.asarray(sft.e) * HARTREE2EV
             roots = [{"e_ev": float(np.real(x)), "target_2S": target} for x in e_ev[: min(5, len(e_ev))]]
             results[mode] = {"roots": roots, "nroots": len(roots)}
@@ -345,9 +382,10 @@ def checkpoint_key(species: str, method: str, r: float) -> str:
 def load_store(path: Path) -> dict[str, Any]:
     if path.exists():
         return json.loads(path.read_text())
+    pv, _, _ = _pyscf()
     return {
         "meta": {
-            "pyscf_version": PV,
+            "pyscf_version": pv,
             "protocol": "td_vertical_scan_v1",
             "min_mem_gib": min_mem_gib(),
             "omp_num_threads": os.environ.get("OMP_NUM_THREADS"),
@@ -369,6 +407,17 @@ def save_store(path: Path, data: dict[str, Any]) -> None:
 def run_scan(args: argparse.Namespace) -> int:
     if not args.run:
         raise SystemExit("Refusing heavy TD scan without --run (see docs/td_protocol.md)")
+
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(levelname)s %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+    _pyscf()
+    mem_kw = {
+        "wait_seconds": args.mem_wait_seconds,
+        "max_wait_hours": args.mem_wait_max_hours,
+    }
 
     common = _import_common()
     grid = parse_grid(args.grid)
@@ -404,7 +453,7 @@ def run_scan(args: argparse.Namespace) -> int:
             for method_id, driver, xc, alg in methods:
                 prev_state = None
                 for r in grid:
-                    check_memory()
+                    check_memory(**mem_kw)
                     ck = checkpoint_key(key, method_id, r)
                     if ck in data["points"]:
                         prev = data["points"][ck]
@@ -450,8 +499,9 @@ def run_scan(args: argparse.Namespace) -> int:
                 sfk = f"{job['id']}|{r:.2f}"
                 if sfk in data["spin_flip"]:
                     continue
-                check_memory()
+                check_memory(**mem_kw)
                 mol = common.build(job["element"], r, job["charge"], job["ref_spin"], basis, ecp)
+                _, scf, _ = _pyscf()
                 mf = scf.UKS(mol)
                 mf.xc = "pbe0"
                 mf.verbose = 0
@@ -471,6 +521,7 @@ def run_scan(args: argparse.Namespace) -> int:
 
 
 def run_smoke(args: argparse.Namespace) -> dict[str, Any]:
+    _pyscf()
     common = _import_common()
     basis, ecp, x2c = SMOKE_BASIS
     grid = [1.80, 2.00]

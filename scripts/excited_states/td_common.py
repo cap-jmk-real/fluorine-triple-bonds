@@ -1,14 +1,28 @@
 """Shared TD vertical-excitation scan helpers (geometry/basis + MR diagnostics)."""
 from __future__ import annotations
 
+import logging
 import os
+import time
 from typing import Any
 
 import numpy as np
-from pyscf.data import nist
 
-HARTREE2EV = float(nist.HARTREE2EV)
+logger = logging.getLogger(__name__)
+
 HA_EV = 27.211386245988
+_HARTREE2EV: float | None = None
+
+
+def __getattr__(name: str) -> Any:
+    if name == "HARTREE2EV":
+        global _HARTREE2EV
+        if _HARTREE2EV is None:
+            from pyscf.data import nist
+
+            _HARTREE2EV = float(nist.HARTREE2EV)
+        return _HARTREE2EV
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 TD_SPECS: list[tuple[str, str, int, int]] = [
     ("PdF_2", "Pd", 0, 1),
@@ -97,14 +111,33 @@ def mem_available_gib() -> float | None:
     return None
 
 
-def check_memory() -> None:
-    avail = mem_available_gib()
+def check_memory(
+    *,
+    wait_seconds: float = 300,
+    max_wait_hours: float = 24,
+) -> None:
+    """Wait until MemAvailable meets TD_MIN_MEM_GIB instead of exiting immediately."""
     need = min_mem_gib()
-    if avail is not None and avail < need:
-        raise SystemExit(
-            f"MemAvailable {avail:.2f} GiB < required {need:.2f} GiB "
-            f"(set TD_MIN_MEM_GIB to override)"
+    deadline = time.monotonic() + max(0.0, max_wait_hours) * 3600.0
+    while True:
+        avail = mem_available_gib()
+        if avail is None or avail >= need:
+            return
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            raise SystemExit(
+                f"MemAvailable {avail:.2f} GiB < required {need:.2f} GiB "
+                f"after waiting up to {max_wait_hours:.2f} h "
+                f"(set TD_MIN_MEM_GIB to override)"
+            )
+        sleep_for = min(wait_seconds, remaining)
+        logger.warning(
+            "MemAvailable %.2f GiB < required %.2f GiB; sleeping %.0f s before recheck",
+            avail,
+            need,
+            sleep_for,
         )
+        time.sleep(sleep_for)
 
 
 def max_memory_mb() -> int:

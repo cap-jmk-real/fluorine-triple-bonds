@@ -5,6 +5,8 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+from unittest.mock import patch
+
 import pytest
 
 REPO = Path(__file__).resolve().parent.parent
@@ -99,3 +101,45 @@ def test_stats_lowest():
     s = tc.stats_lowest([0.5, 0.7, 0.9])
     assert s["mean"] == pytest.approx(0.7)
     assert s["n"] == 3
+
+
+def test_check_memory_waits_until_available():
+    tc = _import_common()
+    readings = [2.0, 2.0, 8.0]
+
+    def fake_avail():
+        return readings.pop(0) if readings else 8.0
+
+    with (
+        patch.object(tc, "mem_available_gib", side_effect=fake_avail),
+        patch.object(tc, "min_mem_gib", return_value=6.0),
+        patch.object(tc.time, "sleep") as slept,
+        patch.object(tc.time, "monotonic", side_effect=[0.0, 1.0, 2.0, 3.0]),
+    ):
+        tc.check_memory(wait_seconds=10, max_wait_hours=1.0)
+    assert slept.call_count == 2
+
+
+def test_check_memory_exits_after_max_wait():
+    tc = _import_common()
+    with (
+        patch.object(tc, "mem_available_gib", return_value=1.0),
+        patch.object(tc, "min_mem_gib", return_value=6.0),
+        patch.object(tc.time, "sleep"),
+        patch.object(tc.time, "monotonic", side_effect=[0.0, 100.0, 200.0, 3601.0]),
+        pytest.raises(SystemExit),
+    ):
+        tc.check_memory(wait_seconds=100, max_wait_hours=1.0)
+
+
+def test_help_without_importing_pyscf():
+    proc = subprocess.run(
+        [sys.executable, str(SCAN), "--help"],
+        cwd=str(REPO),
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    assert proc.returncode == 0
+    assert "--mem-wait-seconds" in proc.stdout
+    assert "--mem-wait-max-hours" in proc.stdout

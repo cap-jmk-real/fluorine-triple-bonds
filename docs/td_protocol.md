@@ -81,8 +81,11 @@ JSON at `--out` (default `data/td_scan/td_raw.json`); one entry per `(species, m
 
 ## Memory / threads
 
-- Abort if `MemAvailable` &lt; `TD_MIN_MEM_GIB` (default **6**).
+- Before each grid point, if `MemAvailable` &lt; `TD_MIN_MEM_GIB` (default **6** GiB), the driver **sleeps and rechecks** in the same process instead of exiting (avoids a full PySCF cold start on every transient dip).
+- `--mem-wait-seconds` (default **300**): pause between rechecks.
+- `--mem-wait-max-hours` (default **24**): exit only if memory stays low for longer than this wall time; each wait is logged.
 - `PYSCF_MAX_MEMORY` (MB, default 4000) and `OMP_NUM_THREADS` respected.
+- `python scripts/excited_states/td_scan.py --help` does not import PySCF (heavy imports load only on `--smoke` / `--run`).
 
 ## Guards
 

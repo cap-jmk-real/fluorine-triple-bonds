@@ -4,6 +4,8 @@ Repository for the computational study on Mn–F multiple bonding by Julian M. K
 
 **Status:** public code and data release. The files are an as-is snapshot of the working project (`fluorine-snap-1124.tgz`, 24 Nov 2026). The manuscript in `paper/` is the 22 Nov 2026 source and still carries the earlier title; the current preprint title is *Can Fluorine Form Triple Bonds? Relativistic Multireference Electronic Structure, σ/π Bond-Order Decomposition, and All-Electron vs. ECP Audit of Transition-Metal Monofluorides* (ChemRxiv). Manuscript fixes will land here through pull requests. Nothing has been changed for this release yet.
 
+Research journal (sanitized snapshot, 2026-11-27): [`JOURNAL.md`](JOURNAL.md).
+
 ## Layout
 
 | Path | Contents |
